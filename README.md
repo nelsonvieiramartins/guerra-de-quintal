@@ -1,141 +1,143 @@
-# 🚀 Welcome to Z.ai Code Scaffold
+# 🏠 Guerra de Quintal: Mestres da Sucata
 
-A modern, production-ready web application scaffold powered by cutting-edge technologies, designed to accelerate your development with [Z.ai](https://chat.z.ai)'s AI-powered coding assistance.
+Um protótipo digital do jogo de tabuleiro cooperativo onde crianças defendem seu quintal de criaturas do folclore brasileiro usando armas feitas de sucata!
 
-## ✨ Technology Stack
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=flat-square&logo=tailwind-css)
 
-This scaffold provides a robust foundation built with:
+## 🎮 Funcionalidades
 
-### 🎯 Core Framework
-- **⚡ Next.js 16** - The React framework for production with App Router
-- **📘 TypeScript 5** - Type-safe JavaScript for better developer experience
-- **🎨 Tailwind CSS 4** - Utility-first CSS framework for rapid UI development
+### 🔧 Calculadora de Crafting
+- Combine 4 tipos de cartas para criar armas:
+  - **Item Essencial** - O componente principal
+  - **Base** - Suporte ou estrutura
+  - **Item Básico** - Material ou elemento
+  - **Gatilho** - Mecanismo de ativação
+- 23 receitas de armas únicas
+- Visual estilo papel envelhecido
 
-### 🧩 UI Components & Styling
-- **🧩 shadcn/ui** - High-quality, accessible components built on Radix UI
-- **🎯 Lucide React** - Beautiful & consistent icon library
-- **🌈 Framer Motion** - Production-ready motion library for React
-- **🎨 Next Themes** - Perfect dark mode in 2 lines of code
+### ⚔️ Simulador de Combate
+- Sistema de dados d6
+- **4-6 = Acerto** (causa 1 de dano)
+- **1-3 = Erro** (não causa dano)
+- Sistema de fraqueza elemental (+1 dado)
+- Sistema de resistência elemental (-1 sucesso)
+- 6 monstros do folclore brasileiro
 
-### 📋 Forms & Validation
-- **🎣 React Hook Form** - Performant forms with easy validation
-- **✅ Zod** - TypeScript-first schema validation
+### 🎮 Mini Jogo
+- 3 caminhos de invasão (Esquerdo, Central, Direito)
+- 3 cômodos da casa (Quarto, Cozinha, Sala)
+- Posicione armas estrategicamente
+- Defenda contra ondas de monstros aleatórios
 
-### 🔄 State Management & Data Fetching
-- **🐻 Zustand** - Simple, scalable state management
-- **🔄 TanStack Query** - Powerful data synchronization for React
-- **🌐 Fetch** - Promise-based HTTP request
+## 👹 Monstros
 
-### 🗄️ Database & Backend
-- **🗄️ Prisma** - Next-generation TypeScript ORM
-- **🔐 NextAuth.js** - Complete open-source authentication solution
+| Monstro | HP | Fraqueza | Resistência |
+|---------|-----|----------|-------------|
+| 🌀 Saci | 3 | Armadilhas de Chão | Físico |
+| 🐴 Mula Sem Cabeça | 5 | Água/Som/Lama | Fogo (imune) |
+| 🐕 Capelobo | 4 | Eletricidade/Perfuração | Físico Leve |
+| 🌲 Curupira | 3 | Armadilhas Manuais | Sensores |
+| 🔥 Boitatá | 4 | Gelo | Fogo/Sensores |
+| 🧙‍♀️ Cuca (Boss) | 10 | Dano Combinado | Tudo Isolado |
 
-### 🎨 Advanced UI Features
-- **📊 TanStack Table** - Headless UI for building tables and datagrids
-- **🖱️ DND Kit** - Modern drag and drop toolkit for React
-- **📊 Recharts** - Redefined chart library built with React and D3
-- **🖼️ Sharp** - High performance image processing
+## 🚀 Deploy no GitHub Pages
 
-### 🌍 Internationalization & Utilities
-- **🌍 Next Intl** - Internationalization library for Next.js
-- **📅 Date-fns** - Modern JavaScript date utility library
-- **🪝 ReactUse** - Collection of essential React hooks for modern development
+### Opção 1: Automático (GitHub Actions)
 
-## 🎯 Why This Scaffold?
+1. **Fork ou clone este repositório**
+2. **Vá em Settings > Pages**
+3. **Em "Source", selecione "GitHub Actions"**
+4. **Faça um push para a branch main/master**
 
-- **🏎️ Fast Development** - Pre-configured tooling and best practices
-- **🎨 Beautiful UI** - Complete shadcn/ui component library with advanced interactions
-- **🔒 Type Safety** - Full TypeScript configuration with Zod validation
-- **📱 Responsive** - Mobile-first design principles with smooth animations
-- **🗄️ Database Ready** - Prisma ORM configured for rapid backend development
-- **🔐 Auth Included** - NextAuth.js for secure authentication flows
-- **📊 Data Visualization** - Charts, tables, and drag-and-drop functionality
-- **🌍 i18n Ready** - Multi-language support with Next Intl
-- **🚀 Production Ready** - Optimized build and deployment settings
-- **🤖 AI-Friendly** - Structured codebase perfect for AI assistance
+O workflow irá automaticamente fazer o build e deploy!
 
-## 🚀 Quick Start
+### Opção 2: Manual
 
 ```bash
-# Install dependencies
+# Instalar dependências
 bun install
 
-# Start development server
-bun run dev
-
-# Build for production
+# Build para exportação estática
 bun run build
 
-# Start production server
-bun start
+# O conteúdo estará em /out
+# Faça upload manual para GitHub Pages
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to see your application running.
+## 💻 Desenvolvimento Local
 
-## 🤖 Powered by Z.ai
+```bash
+# Clonar o repositório
+git clone https://github.com/seu-usuario/guerra-de-quintal.git
+cd guerra-de-quintal
 
-This scaffold is optimized for use with [Z.ai](https://chat.z.ai) - your AI assistant for:
+# Instalar dependências
+bun install
 
-- **💻 Code Generation** - Generate components, pages, and features instantly
-- **🎨 UI Development** - Create beautiful interfaces with AI assistance  
-- **🔧 Bug Fixing** - Identify and resolve issues with intelligent suggestions
-- **📝 Documentation** - Auto-generate comprehensive documentation
-- **🚀 Optimization** - Performance improvements and best practices
+# Rodar em desenvolvimento
+bun run dev
 
-Ready to build something amazing? Start chatting with Z.ai at [chat.z.ai](https://chat.z.ai) and experience the future of AI-powered development!
-
-## 📁 Project Structure
-
-```
-src/
-├── app/                 # Next.js App Router pages
-├── components/          # Reusable React components
-│   └── ui/             # shadcn/ui components
-├── hooks/              # Custom React hooks
-└── lib/                # Utility functions and configurations
+# Acesse http://localhost:3000
 ```
 
-## 🎨 Available Features & Components
+## 📁 Estrutura do Projeto
 
-This scaffold includes a comprehensive set of modern web development tools:
+```
+├── src/
+│   ├── app/
+│   │   ├── page.tsx          # Página principal
+│   │   ├── layout.tsx        # Layout global
+│   │   └── globals.css       # Estilos (papel envelhecido)
+│   ├── components/
+│   │   ├── game/
+│   │   │   ├── CraftingCalculator.tsx
+│   │   │   ├── CombatSimulator.tsx
+│   │   │   └── MiniGame.tsx
+│   │   └── ui/               # Componentes shadcn/ui
+│   ├── data/
+│   │   ├── cards.ts          # 56 cartas do jogo
+│   │   ├── monsters.ts       # 6 monstros
+│   │   └── recipes.ts        # 23 receitas de armas
+│   └── lib/
+│       └── gameLogic.ts      # Lógica do jogo
+├── public/
+│   └── upload/               # Imagens das armas
+└── .github/
+    └── workflows/
+        └── deploy.yml        # GitHub Actions
+```
 
-### 🧩 UI Components (shadcn/ui)
-- **Layout**: Card, Separator, Aspect Ratio, Resizable Panels
-- **Forms**: Input, Textarea, Select, Checkbox, Radio Group, Switch
-- **Feedback**: Alert, Toast (Sonner), Progress, Skeleton
-- **Navigation**: Breadcrumb, Menubar, Navigation Menu, Pagination
-- **Overlay**: Dialog, Sheet, Popover, Tooltip, Hover Card
-- **Data Display**: Badge, Avatar, Calendar
+## 🎨 Visual
 
-### 📊 Advanced Data Features
-- **Tables**: Powerful data tables with sorting, filtering, pagination (TanStack Table)
-- **Charts**: Beautiful visualizations with Recharts
-- **Forms**: Type-safe forms with React Hook Form + Zod validation
+O jogo usa uma estética de **papel envelhecido** inspirada em artesanato brasileiro:
+- Tons terrosos (marrom, bege, ocre)
+- Textura de papel antigo
+- Bordas rasgadas
+- Estilo handmade/desenhado à mão
 
-### 🎨 Interactive Features
-- **Animations**: Smooth micro-interactions with Framer Motion
-- **Drag & Drop**: Modern drag-and-drop functionality with DND Kit
-- **Theme Switching**: Built-in dark/light mode support
+## 📜 Regras do Jogo
 
-### 🔐 Backend Integration
-- **Authentication**: Ready-to-use auth flows with NextAuth.js
-- **Database**: Type-safe database operations with Prisma
-- **API Client**: HTTP requests with Fetch + TanStack Query
-- **State Management**: Simple and scalable with Zustand
+### Sistema de Combate
+1. Role dados d6 igual ao poder de fogo da arma
+2. Cada resultado 4, 5 ou 6 é um acerto
+3. Cada acerto causa 1 de dano
+4. Fraqueza elemental: +1 dado extra
+5. Resistência elemental: -1 sucesso
 
-### 🌍 Production Features
-- **Internationalization**: Multi-language support with Next Intl
-- **Image Optimization**: Automatic image processing with Sharp
-- **Type Safety**: End-to-end TypeScript with Zod validation
-- **Essential Hooks**: 100+ useful React hooks with ReactUse for common patterns
+### Mini Jogo
+1. Posicione 3-6 armas nos caminhos (máx. 2 por caminho)
+2. Monstros aparecem aleatoriamente em um dos 3 caminhos
+3. Armas atacam monstros na mesma zona
+4. Monstros avançam uma zona por turno
+5. Se 3 monstros chegarem à casa, você perde!
+6. Sobreviva 10 turnos para vencer!
 
-## 🤝 Get Started with Z.ai
+## 📖 Créditos
 
-1. **Clone this scaffold** to jumpstart your project
-2. **Visit [chat.z.ai](https://chat.z.ai)** to access your AI coding assistant
-3. **Start building** with intelligent code generation and assistance
-4. **Deploy with confidence** using the production-ready setup
+Baseado no Game Design Document de "Guerra de Quintal: Mestres da Sucata"
 
 ---
 
-Built with ❤️ for the developer community. Supercharged by [Z.ai](https://chat.z.ai) 🚀
+🎲 **Jogue e defenda seu quintal das criaturas do folclore!**
