@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guerra de Quintal: Mestres da Sucata</title>
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #f4e4bc 0%, #e8d5b5 50%, #dcc9a5 100%);
+            min-height: 100vh;
+            color: #3d2817;
+            overflow-x: hidden;
+        }
+
+        /* ===== PAPER TEXTURE ===== */
+        .paper-texture {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(139, 69, 19, 0.02) 2px,
+                    rgba(139, 69, 19, 0.02) 4px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(139, 69, 19, 0.02) 2px,
+                    rgba(139, 69, 19, 0.02) 4px
+                );
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: linear-gradient(180deg, #8b4513 0%, #5c3310 100%);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #cd853f;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .header h1 {
+            color: #f4e4bc;
+            font-size: 2.5em;
+            text-shadow: 3px 3px 0 #3d2817, -1px -1px 0 #cd853f;
+            letter-spacing: 3px;
+        }
+
+        .header .subtitle {
+            color: #d4a574;
+            font-style: italic;
+            font-size: 1.2em;
+            margin-top: 5px;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: linear-gradient(180deg, #cd853f 0%, #8b4513 100%);
+            border: 3px solid #5c3310;
+            color: #f4e4bc;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-family: 'Georgia', serif;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-btn:hover::before {
+            left: 100%;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.3);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(180deg, #d4a574 0%, #a0522d 100%);
+            border-color: #cd853f;
+            transform: scale(1.05);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: linear-gradient(135deg, #f9edd3 0%, #f4e4bc 50%, #e8d5b5 100%);
+            border: 3px solid #8b4513;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 
+                5px 5px 0 rgba(139, 69, 19, 0.3),
+                inset 0 0 30px rgba(139, 69, 19, 0.05);
+            position: relative;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            color: #8b4513;
+            text-align: center;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+            border-bottom: 2px dashed #c9a66b;
+            padding-bottom: 10px;
+        }
+
+        /* ===== GAME CARDS ===== */
+        .game-card {
+            background: linear-gradient(180deg, #fff 0%, #f5f0e1 100%);
+            border: 3px solid #cd853f;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 80px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px) rotate(2deg);
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .game-card.selected {
+            border-color: #22c55e;
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+            transform: scale(1.05);
+        }
+
+        .game-card .emoji {
+            font-size: 2em;
+        }
+
+        .game-card .name {
+            font-size: 0.8em;
+            margin-top: 5px;
+            color: #5c3310;
+            font-weight: bold;
+        }
+
+        /* ===== WEAPON CARD ===== */
+        .weapon-card {
+            background: linear-gradient(135deg, #2c1810 0%, #3d2817 50%, #2c1810 100%);
+            border: 4px solid #cd853f;
+            border-radius: 15px;
+            padding: 20px;
+            color: #f4e4bc;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+        }
+
+        .weapon-card .weapon-name {
+            font-size: 1.5em;
+            color: #cd853f;
+            margin-bottom: 10px;
+        }
+
+        .weapon-card .weapon-stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .weapon-card .stat {
+            background: rgba(205, 133, 63, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        /* ===== MONSTER CARD ===== */
+        .monster-card {
+            background: linear-gradient(135deg, #1a0f0a 0%, #2c1810 100%);
+            border: 4px solid #8b4513;
+            border-radius: 15px;
+            padding: 20px;
+            color: #f4e4bc;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+
+        .monster-card:hover {
+            transform: scale(1.02);
+            border-color: #cd853f;
+        }
+
+        .monster-card .monster-emoji {
+            font-size: 4em;
+            margin-bottom: 10px;
+        }
+
+        .monster-card .monster-name {
+            font-size: 1.4em;
+            color: #cd853f;
+            margin-bottom: 5px;
+        }
+
+        .monster-card .monster-hp {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin: 10px 0;
+        }
+
+        .hp-heart {
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+        }
+
+        .hp-heart.lost {
+            opacity: 0.3;
+            filter: grayscale(1);
+        }
+
+        /* ===== DICE ===== */
+        .dice-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .dice {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #fff 0%, #e8e8e8 100%);
+            border: 3px solid #333;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .dice.hit {
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+            border-color: #166534;
+            color: #fff;
+            animation: diceHit 0.5s ease;
+        }
+
+        .dice.miss {
+            background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+            border-color: #991b1b;
+            color: #fff;
+            animation: diceMiss 0.5s ease;
+        }
+
+        @keyframes diceHit {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        @keyframes diceMiss {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(0.9) rotate(-5deg); }
+            75% { transform: scale(0.9) rotate(5deg); }
+        }
+
+        .dice.rolling {
+            animation: diceRoll 0.5s ease infinite;
+        }
+
+        @keyframes diceRoll {
+            0% { transform: rotateX(0deg) rotateY(0deg); }
+            25% { transform: rotateX(90deg) rotateY(45deg); }
+            50% { transform: rotateX(180deg) rotateY(90deg); }
+            75% { transform: rotateX(270deg) rotateY(135deg); }
+            100% { transform: rotateX(360deg) rotateY(180deg); }
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            background: linear-gradient(180deg, #cd853f 0%, #8b4513 100%);
+            border: 3px solid #5c3310;
+            color: #f4e4bc;
+            padding: 12px 25px;
+            font-size: 1em;
+            font-family: 'Georgia', serif;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+        }
+
+        .btn:hover {
+            background: linear-gradient(180deg, #d4a574 0%, #a0522d 100%);
+            transform: translateY(-2px);
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.3);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-success {
+            background: linear-gradient(180deg, #4ade80 0%, #22c55e 100%);
+            border-color: #166534;
+        }
+
+        .btn-danger {
+            background: linear-gradient(180deg, #f87171 0%, #ef4444 100%);
+            border-color: #991b1b;
+        }
+
+        /* ===== MINI GAME BOARD ===== */
+        .game-board {
+            background: linear-gradient(180deg, #2d5a27 0%, #1e3d1a 100%);
+            border: 5px solid #5c3310;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-board::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grass'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grass)'/%3E%3C/svg%3E");
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .board-header {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            text-align: center;
+            color: #f4e4bc;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .board-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .path-label {
+            background: linear-gradient(180deg, #8b4513 0%, #5c3310 100%);
+            color: #f4e4bc;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .zone {
+            min-height: 70px;
+            border-radius: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            padding: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .zone-street {
+            background: linear-gradient(180deg, #6b7280 0%, #4b5563 100%);
+            border: 2px solid #374151;
+        }
+
+        .zone-yard {
+            background: linear-gradient(180deg, #22c55e 0%, #16a34a 100%);
+            border: 2px solid #15803d;
+        }
+
+        .zone-yard:hover {
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.5);
+        }
+
+        .zone-house {
+            background: linear-gradient(180deg, #92400e 0%, #78350f 100%);
+            border: 2px solid #451a03;
+        }
+
+        .zone-house:hover {
+            box-shadow: 0 0 15px rgba(234, 88, 12, 0.5);
+        }
+
+        .zone-room {
+            background: linear-gradient(180deg, #7c3aed 0%, #5b21b6 100%);
+            border: 2px solid #4c1d95;
+            color: #fff;
+            font-size: 0.8em;
+            text-align: center;
+        }
+
+        .placed-weapon {
+            background: rgba(255,255,255,0.9);
+            border-radius: 5px;
+            padding: 3px 8px;
+            font-size: 0.75em;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .placed-weapon:hover {
+            background: #f87171;
+            color: #fff;
+        }
+
+        .monster-token {
+            font-size: 1.8em;
+            animation: monsterBounce 1s ease infinite;
+            cursor: pointer;
+        }
+
+        @keyframes monsterBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .monster-token.in-house {
+            animation: monsterPanic 0.3s ease infinite;
+        }
+
+        @keyframes monsterPanic {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* ===== ARSENAL ===== */
+        .arsenal {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .arsenal-item {
+            background: linear-gradient(180deg, #f9edd3 0%, #f4e4bc 100%);
+            border: 3px solid #cd853f;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .arsenal-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .arsenal-item.selected {
+            border-color: #22c55e;
+            background: linear-gradient(180deg, #dcfce7 0%, #bbf7d0 100%);
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.5);
+        }
+
+        .arsenal-item.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* ===== STATS BAR ===== */
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(180deg, #8b4513 0%, #5c3310 100%);
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: #f4e4bc;
+            margin-bottom: 15px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-value {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #cd853f;
+        }
+
+        /* ===== ALERT ===== */
+        .alert {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+            font-weight: bold;
+            animation: alertPulse 1s ease infinite;
+        }
+
+        .alert-danger {
+            background: linear-gradient(180deg, #fef2f2 0%, #fee2e2 100%);
+            border: 3px solid #ef4444;
+            color: #991b1b;
+        }
+
+        .alert-success {
+            background: linear-gradient(180deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 3px solid #22c55e;
+            color: #166534;
+        }
+
+        .alert-warning {
+            background: linear-gradient(180deg, #fffbeb 0%, #fef3c7 100%);
+            border: 3px solid #f59e0b;
+            color: #92400e;
+        }
+
+        @keyframes alertPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.01); }
+        }
+
+        /* ===== MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: modalFade 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        @keyframes modalFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #f9edd3 0%, #f4e4bc 100%);
+            border: 5px solid #8b4513;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            text-align: center;
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-content h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .modal-content .emoji-big {
+            font-size: 5em;
+            margin: 20px 0;
+        }
+
+        /* ===== GRID LAYOUTS ===== */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .board-header, .board-row {
+                grid-template-columns: repeat(5, 1fr);
+                font-size: 0.7em;
+            }
+            
+            .zone {
+                min-height: 50px;
+            }
+        }
+
+        /* ===== CRAFTING SLOTS ===== */
+        .crafting-slots {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .craft-slot {
+            width: 100px;
+            height: 120px;
+            border: 3px dashed #8b4513;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .craft-slot:hover {
+            border-style: solid;
+            background: rgba(255,255,255,0.5);
+        }
+
+        .craft-slot.filled {
+            border-style: solid;
+            border-color: #22c55e;
+            background: linear-gradient(180deg, #dcfce7 0%, #bbf7d0 100%);
+        }
+
+        .craft-slot .slot-emoji {
+            font-size: 2em;
+        }
+
+        .craft-slot .slot-label {
+            font-size: 0.7em;
+            color: #5c3310;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        /* ===== COMBAT RESULT ===== */
+        .combat-result {
+            background: linear-gradient(135deg, #1e3d1a 0%, #0f1f0d 100%);
+            border: 4px solid #22c55e;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            color: #f4e4bc;
+        }
+
+        .combat-result .result-title {
+            font-size: 1.5em;
+            color: #4ade80;
+            margin-bottom: 15px;
+        }
+
+        .combat-result .result-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+        }
+
+        .combat-result .result-stat {
+            text-align: center;
+        }
+
+        .combat-result .result-stat .value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #cd853f;
+        }
+
+        .combat-result .result-stat .label {
+            font-size: 0.8em;
+            color: #a3a3a3;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: linear-gradient(180deg, #5c3310 0%, #3d2817 100%);
+            padding: 20px;
+            text-align: center;
+            color: #d4a574;
+            margin-top: 30px;
+            border-top: 5px solid #8b4513;
+        }
+
+        .footer .stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        /* ===== UTILITY ===== */
+        .text-center { text-align: center; }
+        .mt-20 { margin-top: 20px; }
+        .mb-20 { margin-bottom: 20px; }
+        .flex-center { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 10px; 
+        }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <div class="paper-texture"></div>
+
+    <!-- HEADER -->
+    <header class="header">
+        <h1>🏠 Guerra de Quintal</h1>
+        <div class="subtitle">Mestres da Sucata</div>
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <button class="nav-btn active" onclick="showSection('crafting')">
+            🔧 Calculadora de Crafting
+        </button>
+        <button class="nav-btn" onclick="showSection('combat')">
+            ⚔️ Simulador de Combate
+        </button>
+        <button class="nav-btn" onclick="showSection('minigame')">
+            🎮 Mini Jogo
+        </button>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+        
+        <!-- CRAFTING SECTION -->
+        <section id="crafting" class="section active">
+            <div class="card">
+                <h2 class="card-title">🔧 Calculadora de Crafting</h2>
+                <p class="text-center" style="color: #5c3310; margin-bottom: 20px;">
+                    Selecione 4 cartas para criar uma arma poderosa!
+                </p>
+
+                <!-- Crafting Slots -->
+                <div class="crafting-slots">
+                    <div class="craft-slot" id="slot-essential" onclick="openCardPicker('essential')">
+                        <div class="slot-emoji">❓</div>
+                        <div class="slot-label">Essencial</div>
+                    </div>
+                    <div class="craft-slot" id="slot-base" onclick="openCardPicker('base')">
+                        <div class="slot-emoji">❓</div>
+                        <div class="slot-label">Base</div>
+                    </div>
+                    <div class="craft-slot" id="slot-basic" onclick="openCardPicker('basic')">
+                        <div class="slot-emoji">❓</div>
+                        <div class="slot-label">Básico</div>
+                    </div>
+                    <div class="craft-slot" id="slot-trigger" onclick="openCardPicker('trigger')">
+                        <div class="slot-emoji">❓</div>
+                        <div class="slot-label">Gatilho</div>
+                    </div>
+                </div>
+
+                <!-- Craft Button -->
+                <div class="text-center mt-20">
+                    <button class="btn btn-success" id="craft-btn" onclick="craft()" disabled>
+                        🔨 Criar Arma!
+                    </button>
+                    <button class="btn" onclick="resetCrafting()" style="margin-left: 10px;">
+                        🔄 Limpar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Card Picker -->
+            <div class="card hidden" id="card-picker">
+                <h3 class="card-title" id="picker-title">Escolha uma Carta</h3>
+                <div class="grid-4" id="picker-cards"></div>
+            </div>
+
+            <!-- Craft Result -->
+            <div class="card hidden" id="craft-result">
+                <h3 class="card-title">🎉 Arma Criada!</h3>
+                <div id="weapon-result"></div>
+            </div>
+
+            <!-- Recipe Book -->
+            <div class="card">
+                <h3 class="card-title">📖 Livro de Receitas</h3>
+                <p class="text-center mb-20" style="color: #5c3310;">
+                    Clique em uma receita para ver os detalhes
+                </p>
+                <div class="grid-3" id="recipe-book"></div>
+            </div>
+        </section>
+
+        <!-- COMBAT SECTION -->
+        <section id="combat" class="section">
+            <div class="grid-2">
+                <!-- Weapon Selection -->
+                <div class="card">
+                    <h3 class="card-title">⚔️ Escolha sua Arma</h3>
+                    <div class="grid-3" id="weapon-picker"></div>
+                </div>
+
+                <!-- Monster Selection -->
+                <div class="card">
+                    <h3 class="card-title">👹 Escolha o Monstro</h3>
+                    <div class="grid-3" id="monster-picker"></div>
+                </div>
+            </div>
+
+            <!-- Selected Combatants -->
+            <div class="card">
+                <h3 class="card-title">⚔️ Arena de Combate</h3>
+                <div class="grid-2">
+                    <div id="selected-weapon" class="text-center">
+                        <p style="color: #8b4513;">Selecione uma arma</p>
+                    </div>
+                    <div id="selected-monster" class="text-center">
+                        <p style="color: #8b4513;">Selecione um monstro</p>
+                    </div>
+                </div>
+                <div class="text-center mt-20">
+                    <button class="btn btn-danger" id="attack-btn" onclick="attack()" disabled>
+                        ⚔️ ATACAR!
+                    </button>
+                </div>
+            </div>
+
+            <!-- Combat Result -->
+            <div class="combat-result hidden" id="combat-result">
+                <div class="result-title" id="combat-title">Resultado do Combate</div>
+                <div class="dice-container" id="dice-result"></div>
+                <div class="result-stats">
+                    <div class="result-stat">
+                        <div class="value" id="hits-count">0</div>
+                        <div class="label">Acertos</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="value" id="damage-count">0</div>
+                        <div class="label">Dano Total</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="value" id="monster-hp">0</div>
+                        <div class="label">HP Restante</div>
+                    </div>
+                </div>
+                <div class="mt-20">
+                    <div id="elemental-info"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MINI GAME SECTION -->
+        <section id="minigame" class="section">
+            <!-- Game Stats -->
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span>🎯 Turno:</span>
+                    <span class="stat-value" id="turn-count">0</span>
+                    <span>/ 10</span>
+                </div>
+                <div class="stat-item">
+                    <span>💀 Derrotados:</span>
+                    <span class="stat-value" id="defeated-count">0</span>
+                </div>
+                <div class="stat-item">
+                    <span>🚪 Invadiram:</span>
+                    <span class="stat-value" id="escaped-count">0</span>
+                    <span>/ 3</span>
+                </div>
+            </div>
+
+            <!-- Game Board -->
+            <div class="game-board">
+                <div class="board-header">
+                    <div>Caminho</div>
+                    <div>🛣️ Rua</div>
+                    <div>🌳 Quintal</div>
+                    <div>🏠 Casa</div>
+                    <div>📍 Cômodo</div>
+                </div>
+                <div id="game-paths"></div>
+            </div>
+
+            <!-- Arsenal -->
+            <div class="card" id="arsenal-card">
+                <h3 class="card-title">🔧 Arsenal - Arraste para posicionar</h3>
+                <p class="text-center" style="color: #5c3310; font-size: 0.9em;">
+                    Clique em uma arma, depois clique no Quintal ou Casa para posicionar
+                </p>
+                <div class="arsenal" id="arsenal"></div>
+                <div class="text-center mt-20">
+                    <button class="btn btn-success" id="start-game-btn" onclick="startGame()" disabled>
+                        ▶️ Iniciar Jogo (mín. 3 armas)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Game Controls -->
+            <div class="card hidden" id="game-controls">
+                <div class="text-center">
+                    <button class="btn btn-success" onclick="nextTurn()">
+                        ⏭️ Próximo Turno
+                    </button>
+                    <button class="btn" onclick="resetGame()" style="margin-left: 10px;">
+                        🔄 Reiniciar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Combat Log -->
+            <div class="card hidden" id="combat-log-card">
+                <h3 class="card-title">📜 Log de Combate</h3>
+                <div id="combat-log" style="max-height: 150px; overflow-y: auto;"></div>
+            </div>
+
+            <!-- Game Rules -->
+            <div class="card">
+                <h3 class="card-title">📖 Regras do Jogo</h3>
+                <div style="line-height: 1.8; color: #5c3310;">
+                    <p>🎯 <strong>3 caminhos</strong> levam aos cômodos da casa</p>
+                    <p>🎲 Monstros aparecem em caminhos <strong>aleatórios</strong></p>
+                    <p>⚔️ Posicione armas no Quintal ou Casa de cada caminho</p>
+                    <p>💀 Se 3 monstros chegarem aos cômodos, você perde!</p>
+                    <p>🏆 Sobreviva 10 turnos para vencer!</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- VICTORY MODAL -->
+    <div class="modal" id="victory-modal">
+        <div class="modal-content">
+            <div class="emoji-big">🎉</div>
+            <h2 style="color: #22c55e;">VITÓRIA!</h2>
+            <p>Você defendeu sua casa!</p>
+            <div class="flex-center mt-20">
+                <div style="text-align: center;">
+                    <div style="font-size: 2em; color: #22c55e;" id="final-defeated">0</div>
+                    <div>Derrotados</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2em; color: #ef4444;" id="final-escaped">0</div>
+                    <div>Escaparam</div>
+                </div>
+            </div>
+            <button class="btn btn-success mt-20" onclick="resetGame()">🔄 Jogar Novamente</button>
+        </div>
+    </div>
+
+    <!-- DEFEAT MODAL -->
+    <div class="modal" id="defeat-modal">
+        <div class="modal-content">
+            <div class="emoji-big">💀</div>
+            <h2 style="color: #ef4444;">DERROTA!</h2>
+            <p>Muitos monstros invadiram sua casa!</p>
+            <div class="flex-center mt-20">
+                <div style="text-align: center;">
+                    <div style="font-size: 2em; color: #22c55e;" id="final-defeated-d">0</div>
+                    <div>Derrotados</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2em; color: #ef4444;" id="final-escaped-d">0</div>
+                    <div>Invadiram</div>
+                </div>
+            </div>
+            <button class="btn btn-danger mt-20" onclick="resetGame()">🔄 Tentar Novamente</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>🎲 Guerra de Quintal: Mestres da Sucata</p>
+        <div class="stats">
+            <span>🃏 23 Armas</span>
+            <span>•</span>
+            <span>👹 6 Monstros</span>
+            <span>•</span>
+            <span>🎲 Sistema d6</span>
+        </div>
+    </footer>
+
+    <script>
+        // ===== GAME DATA =====
+        const ELEMENTS = {
+            physical: { name: 'Físico', emoji: '⚔️', color: '#8B4513' },
+            fire: { name: 'Fogo', emoji: '🔥', color: '#FF4500' },
+            water: { name: 'Água', emoji: '💧', color: '#1E90FF' },
+            electric: { name: 'Elétrico', emoji: '⚡', color: '#FFD700' },
+            ice: { name: 'Gelo', emoji: '❄️', color: '#87CEEB' },
+            earth: { name: 'Terra', emoji: '🌍', color: '#8B4513' },
+            sound: { name: 'Som', emoji: '📢', color: '#9370DB' }
+        };
+
+        const WEAPONS = [
+            { id: 'w1', name: 'Sentinela Nerf', element: 'physical', firepower: 3, desc: 'Pistola Nerf em ventilador rotativo' },
+            { id: 'w2', name: 'Metralhadora Vulcan', element: 'physical', firepower: 5, desc: 'Nerf Vulcan em tripé' },
+            { id: 'w3', name: 'Sentinela de Fogo', element: 'fire', firepower: 4, desc: 'Super Soaker com líquido inflamável' },
+            { id: 'w4', name: 'Canhão de Tênis', element: 'physical', firepower: 3, desc: 'Canhão de bolas de tênis' },
+            { id: 'w5', name: 'Mina de Goma', element: 'earth', firepower: 2, desc: 'Armadilha de geleca pegajosa' },
+            { id: 'w6', name: 'Lançador de Geleca', element: 'earth', firepower: 2, desc: 'Dispositivo que lança gelatina' },
+            { id: 'w7', name: 'Armadilha de Gude', element: 'earth', firepower: 1, desc: 'Bolinhas de gude escorregadias' },
+            { id: 'w8', name: 'Morteiro D\'água', element: 'water', firepower: 3, desc: 'Canhão de água de PVC' },
+            { id: 'w9', name: 'Armadilha Espanador', element: 'physical', firepower: 1, desc: 'Nuvem de poeira' },
+            { id: 'w10', name: 'Teia de Aranha', element: 'earth', firepower: 2, desc: 'Teia gigante de barbante' },
+            { id: 'w11', name: 'Cobra de Mangueira', element: 'water', firepower: 2, desc: 'Mangueira esguichadora' },
+            { id: 'w12', name: 'Spray de Pimenta', element: 'fire', firepower: 3, desc: 'Jato de pimenta concentrada' },
+            { id: 'w13', name: 'Espantalho', element: 'physical', firepower: 1, desc: 'Espantalho assustador' },
+            { id: 'w14', name: 'Bambolê de Fogo', element: 'fire', firepower: 4, desc: 'Barreira de fogo giratória' },
+            { id: 'w15', name: 'Tapete de Brasas', element: 'fire', firepower: 3, desc: 'Tapete com carvão em brasa' },
+            { id: 'w16', name: 'Aspersor de Lama', element: 'earth', firepower: 2, desc: 'Jato de lama' },
+            { id: 'w17', name: 'Pêndulo de Pneu', element: 'physical', firepower: 4, desc: 'Pneu balançante' },
+            { id: 'w18', name: 'Gravidade de Fogo', element: 'fire', firepower: 3, desc: 'Sistema de spray de fogo' },
+            { id: 'w19', name: 'Besta de Lápis', element: 'physical', firepower: 3, desc: 'Besta que dispara lápis' },
+            { id: 'w20', name: 'Lançador de Tênis', element: 'physical', firepower: 3, desc: 'Roda de bicicleta lançadora' },
+            { id: 'w21', name: 'Armadilha de Choque', element: 'electric', firepower: 4, desc: 'Bateria com fios elétricos' },
+            { id: 'w22', name: 'Congelador CO2', element: 'ice', firepower: 4, desc: 'Extintor modificado' },
+            { id: 'w23', name: 'Mina Sonora', element: 'sound', firepower: 3, desc: 'Buzina ensurdecedora' }
+        ];
+
+        const MONSTERS = [
+            { id: 'm1', name: 'Saci', emoji: '🌀', hp: 3, weakness: 'earth', resistance: 'physical', desc: 'Menino de uma perna só' },
+            { id: 'm2', name: 'Mula Sem Cabeça', emoji: '🐴', hp: 5, weakness: 'water', resistance: 'fire', desc: 'Mula que solta fogo' },
+            { id: 'm3', name: 'Capelobo', emoji: '🐕', hp: 4, weakness: 'electric', resistance: 'physical', desc: 'Híbrido homem-animal' },
+            { id: 'm4', name: 'Curupira', emoji: '🌲', hp: 3, weakness: 'physical', resistance: 'electric', desc: 'Protetor das florestas' },
+            { id: 'm5', name: 'Boitatá', emoji: '🔥', hp: 4, weakness: 'ice', resistance: 'fire', desc: 'Serpente de fogo' },
+            { id: 'm6', name: 'Cuca', emoji: '🧙‍♀️', hp: 10, weakness: 'fire', resistance: 'physical', desc: 'Bruxa temida', isBoss: true }
+        ];
+
+        const CARDS = {
+            essential: [
+                { id: 'e1', name: 'Pistola Nerf', emoji: '🔫' },
+                { id: 'e2', name: 'Nerf Vulcan', emoji: '🔫' },
+                { id: 'e3', name: 'Super Soaker', emoji: '💧' },
+                { id: 'e4', name: 'Soprador', emoji: '🌬️' },
+                { id: 'e5', name: 'Ratoeira', emoji: '🪤' },
+                { id: 'e6', name: 'Pá', emoji: '🔨' },
+                { id: 'e7', name: 'Pote Vidro', emoji: '🏺' },
+                { id: 'e8', name: 'PVC', emoji: '🔧' },
+                { id: 'e9', name: 'Espanador', emoji: '🪶' },
+                { id: 'e10', name: 'Barbante', emoji: '🧵' },
+                { id: 'e11', name: 'Mangueira', emoji: '🐍' },
+                { id: 'e12', name: 'Pulverizador', emoji: '💦' },
+                { id: 'e13', name: 'Roupas', emoji: '👕' },
+                { id: 'e14', name: 'Bambolê', emoji: '⭕' },
+                { id: 'e15', name: 'Tapete', emoji: '🟫' },
+                { id: 'e16', name: 'Aspersor', emoji: '🌧️' },
+                { id: 'e17', name: 'Pneu', emoji: '⭕' },
+                { id: 'e18', name: 'Spray', emoji: '🧴' },
+                { id: 'e19', name: 'Motor', emoji: '⚙️' },
+                { id: 'e20', name: 'Roda Bike', emoji: '🚲' },
+                { id: 'e21', name: 'Bateria', emoji: '🔋' },
+                { id: 'e22', name: 'Extintor', emoji: '🧯' },
+                { id: 'e23', name: 'Buzina', emoji: '📢' }
+            ],
+            base: [
+                { id: 'b1', name: 'Tripé', emoji: '📐' },
+                { id: 'b2', name: 'Suporte', emoji: '🪑' },
+                { id: 'b3', name: 'Tubo', emoji: '🔧' }
+            ],
+            basic: [
+                { id: 'k1', name: 'Água', emoji: '💧' },
+                { id: 'k2', name: 'Fogo', emoji: '🔥' },
+                { id: 'k3', name: 'Eletricidade', emoji: '⚡' }
+            ],
+            trigger: [
+                { id: 't1', name: 'Sensor', emoji: '📡' }
+            ]
+        };
+
+        const PATHS = [
+            { id: 'left', name: 'Esquerdo', emoji: '⬅️', room: 'Quarto', roomEmoji: '🛏️' },
+            { id: 'center', name: 'Central', emoji: '⬆️', room: 'Cozinha', roomEmoji: '🍳' },
+            { id: 'right', name: 'Direito', emoji: '➡️', room: 'Sala', roomEmoji: '🛋️' }
+        ];
+
+        // ===== STATE =====
+        let currentSection = 'crafting';
+        let craftingSlots = { essential: null, base: null, basic: null, trigger: null };
+        let currentPickerType = null;
+        let selectedWeapon = null;
+        let selectedMonster = null;
+        let monsterCurrentHp = 0;
+
+        // Mini Game State
+        let gameState = {
+            phase: 'setup',
+            turn: 0,
+            placedWeapons: [],
+            monsters: [],
+            defeated: 0,
+            escaped: 0,
+            selectedArsenalWeapon: null
+        };
+
+        // ===== NAVIGATION =====
+        function showSection(section) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(section).classList.add('active');
+            event.target.classList.add('active');
+            currentSection = section;
+
+            if (section === 'minigame') {
+                initMiniGame();
+            }
+        }
+
+        // ===== CRAFTING =====
+        function openCardPicker(type) {
+            currentPickerType = type;
+            const picker = document.getElementById('card-picker');
+            const cards = CARDS[type];
+            
+            document.getElementById('picker-title').textContent = 
+                `Escolha uma Carta ${type.charAt(0).toUpperCase() + type.slice(1)}`;
+            
+            const cardsHtml = cards.map(card => `
+                <div class="game-card ${craftingSlots[type]?.id === card.id ? 'selected' : ''}" 
+                     onclick="selectCard('${type}', '${card.id}', '${card.name}', '${card.emoji}')">
+                    <div class="emoji">${card.emoji}</div>
+                    <div class="name">${card.name}</div>
+                </div>
+            `).join('');
+            
+            document.getElementById('picker-cards').innerHTML = cardsHtml;
+            picker.classList.remove('hidden');
+        }
+
+        function selectCard(type, id, name, emoji) {
+            craftingSlots[type] = { id, name, emoji };
+            
+            const slot = document.getElementById(`slot-${type}`);
+            slot.innerHTML = `
+                <div class="slot-emoji">${emoji}</div>
+                <div class="slot-label">${name}</div>
+            `;
+            slot.classList.add('filled');
+            
+            document.getElementById('card-picker').classList.add('hidden');
+            checkCraftingComplete();
+        }
+
+        function checkCraftingComplete() {
+            const complete = Object.values(craftingSlots).every(s => s !== null);
+            document.getElementById('craft-btn').disabled = !complete;
+        }
+
+        function craft() {
+            const weapon = WEAPONS[Math.floor(Math.random() * WEAPONS.length)];
+            const elem = ELEMENTS[weapon.element];
+            
+            document.getElementById('weapon-result').innerHTML = `
+                <div class="weapon-card">
+                    <div class="weapon-name">${elem.emoji} ${weapon.name}</div>
+                    <p style="color: #d4a574; font-size: 0.9em;">${weapon.desc}</p>
+                    <div class="weapon-stats">
+                        <div class="stat">⚔️ ${weapon.firepower}d</div>
+                        <div class="stat">${elem.emoji} ${elem.name}</div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('craft-result').classList.remove('hidden');
+        }
+
+        function resetCrafting() {
+            craftingSlots = { essential: null, base: null, basic: null, trigger: null };
+            ['essential', 'base', 'basic', 'trigger'].forEach(type => {
+                const slot = document.getElementById(`slot-${type}`);
+                slot.innerHTML = `
+                    <div class="slot-emoji">❓</div>
+                    <div class="slot-label">${type.charAt(0).toUpperCase() + type.slice(1)}</div>
+                `;
+                slot.classList.remove('filled');
+            });
+            document.getElementById('craft-result').classList.add('hidden');
+            document.getElementById('craft-btn').disabled = true;
+        }
+
+        function initRecipeBook() {
+            const html = WEAPONS.map(w => {
+                const elem = ELEMENTS[w.element];
+                return `
+                    <div class="arsenal-item" onclick="showWeaponDetail('${w.id}')">
+                        <div style="font-size: 1.5em;">${elem.emoji}</div>
+                        <div style="font-weight: bold; margin: 5px 0;">${w.name}</div>
+                        <div style="font-size: 0.8em; color: #8b4513;">⚔️ ${w.firepower}d</div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('recipe-book').innerHTML = html;
+        }
+
+        function showWeaponDetail(id) {
+            const w = WEAPONS.find(w => w.id === id);
+            const elem = ELEMENTS[w.element];
+            alert(`${elem.emoji} ${w.name}\n\n${w.desc}\n\nPoder de Fogo: ${w.firepower}d\nElemento: ${elem.name}`);
+        }
+
+        // ===== COMBAT =====
+        function initCombat() {
+            // Weapon picker
+            const weaponHtml = WEAPONS.slice(0, 9).map(w => {
+                const elem = ELEMENTS[w.element];
+                return `
+                    <div class="game-card" onclick="selectCombatWeapon('${w.id}')">
+                        <div class="emoji">${elem.emoji}</div>
+                        <div class="name">${w.name}</div>
+                        <div style="font-size: 0.7em;">${w.firepower}d</div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('weapon-picker').innerHTML = weaponHtml;
+
+            // Monster picker
+            const monsterHtml = MONSTERS.map(m => `
+                <div class="game-card" onclick="selectCombatMonster('${m.id}')">
+                    <div class="emoji">${m.emoji}</div>
+                    <div class="name">${m.name}</div>
+                    <div style="font-size: 0.7em;">HP: ${m.hp}</div>
+                </div>
+            `).join('');
+            document.getElementById('monster-picker').innerHTML = monsterHtml;
+        }
+
+        function selectCombatWeapon(id) {
+            selectedWeapon = WEAPONS.find(w => w.id === id);
+            const elem = ELEMENTS[selectedWeapon.element];
+            
+            document.querySelectorAll('#weapon-picker .game-card').forEach(c => c.classList.remove('selected'));
+            event.target.closest('.game-card').classList.add('selected');
+            
+            document.getElementById('selected-weapon').innerHTML = `
+                <div class="weapon-card">
+                    <div class="weapon-name">${elem.emoji} ${selectedWeapon.name}</div>
+                    <div class="weapon-stats">
+                        <div class="stat">⚔️ ${selectedWeapon.firepower}d</div>
+                        <div class="stat">${elem.emoji} ${elem.name}</div>
+                    </div>
+                </div>
+            `;
+            
+            checkCombatReady();
+        }
+
+        function selectCombatMonster(id) {
+            selectedMonster = MONSTERS.find(m => m.id === id);
+            monsterCurrentHp = selectedMonster.hp;
+            
+            document.querySelectorAll('#monster-picker .game-card').forEach(c => c.classList.remove('selected'));
+            event.target.closest('.game-card').classList.add('selected');
+            
+            updateMonsterDisplay();
+            checkCombatReady();
+        }
+
+        function updateMonsterDisplay() {
+            const hearts = Array(selectedMonster.hp).fill(0).map((_, i) => 
+                `<span class="hp-heart ${i >= monsterCurrentHp ? 'lost' : ''}">❤️</span>`
+            ).join('');
+            
+            document.getElementById('selected-monster').innerHTML = `
+                <div class="monster-card">
+                    <div class="monster-emoji">${selectedMonster.emoji}</div>
+                    <div class="monster-name">${selectedMonster.name}</div>
+                    <div class="monster-hp">${hearts}</div>
+                    <div style="font-size: 0.8em; color: #d4a574;">HP: ${monsterCurrentHp}/${selectedMonster.hp}</div>
+                </div>
+            `;
+        }
+
+        function checkCombatReady() {
+            document.getElementById('attack-btn').disabled = !(selectedWeapon && selectedMonster);
+        }
+
+        function attack() {
+            const resultDiv = document.getElementById('combat-result');
+            const diceDiv = document.getElementById('dice-result');
+            
+            // Check weakness/resistance
+            const isWeakness = selectedWeapon.element === selectedMonster.weakness;
+            const isResistance = selectedWeapon.element === selectedMonster.resistance;
+            
+            let diceCount = selectedWeapon.firepower;
+            if (isWeakness) diceCount++;
+            
+            // Roll dice
+            const rolls = [];
+            let hits = 0;
+            
+            diceDiv.innerHTML = Array(diceCount).fill(0).map(() => {
+                const roll = Math.floor(Math.random() * 6) + 1;
+                rolls.push(roll);
+                const isHit = roll >= 4;
+                if (isHit) hits++;
+                return `<div class="dice">${roll}</div>`;
+            }).join('');
+            
+            // Apply resistance
+            if (isResistance && hits > 0) {
+                hits = Math.max(0, hits - 1);
+            }
+            
+            // Apply damage
+            monsterCurrentHp = Math.max(0, monsterCurrentHp - hits);
+            
+            // Animate dice
+            setTimeout(() => {
+                diceDiv.innerHTML = rolls.map((roll, i) => {
+                    const isHit = roll >= 4;
+                    return `<div class="dice ${isHit ? 'hit' : 'miss'}">${roll}</div>`;
+                }).join('');
+                
+                // Update stats
+                document.getElementById('hits-count').textContent = hits;
+                document.getElementById('damage-count').textContent = hits;
+                document.getElementById('monster-hp').textContent = monsterCurrentHp;
+                
+                // Elemental info
+                let elemInfo = '';
+                if (isWeakness) {
+                    elemInfo += '<div class="alert alert-success">🎯 Fraqueza! +1 dado extra!</div>';
+                }
+                if (isResistance) {
+                    elemInfo += '<div class="alert alert-warning">🛡️ Resistência! -1 sucesso</div>';
+                }
+                if (monsterCurrentHp === 0) {
+                    elemInfo += '<div class="alert alert-success">🎉 Monstro Derrotado!</div>';
+                    setTimeout(() => {
+                        monsterCurrentHp = selectedMonster.hp;
+                        updateMonsterDisplay();
+                    }, 2000);
+                }
+                document.getElementById('elemental-info').innerHTML = elemInfo;
+                
+                updateMonsterDisplay();
+            }, 500);
+            
+            resultDiv.classList.remove('hidden');
+        }
+
+        // ===== MINI GAME =====
+        function initMiniGame() {
+            gameState = {
+                phase: 'setup',
+                turn: 0,
+                placedWeapons: [],
+                monsters: [],
+                defeated: 0,
+                escaped: 0,
+                selectedArsenalWeapon: null
+            };
+            
+            renderGameBoard();
+            renderArsenal();
+            updateGameStats();
+            
+            document.getElementById('arsenal-card').classList.remove('hidden');
+            document.getElementById('game-controls').classList.add('hidden');
+            document.getElementById('combat-log-card').classList.add('hidden');
+        }
+
+        function renderGameBoard() {
+            const pathsHtml = PATHS.map(path => `
+                <div class="board-row">
+                    <div class="path-label">
+                        <span>${path.emoji}</span>
+                        <span>${path.name}</span>
+                    </div>
+                    <div class="zone zone-street" id="street-${path.id}">
+                        ${renderMonstersInZone(path.id, 'street')}
+                    </div>
+                    <div class="zone zone-yard" id="yard-${path.id}" onclick="placeWeapon('${path.id}', 'yard')">
+                        ${renderPlacedWeapon(path.id, 'yard')}
+                        ${renderMonstersInZone(path.id, 'yard')}
+                    </div>
+                    <div class="zone zone-house" id="house-${path.id}" onclick="placeWeapon('${path.id}', 'house')">
+                        ${renderPlacedWeapon(path.id, 'house')}
+                        ${renderMonstersInZone(path.id, 'house')}
+                    </div>
+                    <div class="zone zone-room">
+                        <span>${path.roomEmoji}</span>
+                        <span>${path.room}</span>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('game-paths').innerHTML = pathsHtml;
+        }
+
+        function renderPlacedWeapon(pathId, zone) {
+            const placed = gameState.placedWeapons.find(w => w.path === pathId && w.zone === zone);
+            if (!placed) return '';
+            
+            const weapon = WEAPONS.find(w => w.id === placed.weaponId);
+            const elem = ELEMENTS[weapon.element];
+            
+            return `<div class="placed-weapon" onclick="event.stopPropagation(); removeWeapon('${placed.id}')">
+                ${elem.emoji} ${weapon.firepower}d ×
+            </div>`;
+        }
+
+        function renderMonstersInZone(pathId, zone) {
+            const monstersHere = gameState.monsters.filter(m => m.path === pathId && m.zone === zone);
+            return monstersHere.map(m => {
+                const monster = MONSTERS.find(mon => mon.id === m.monsterId);
+                const inHouse = zone === 'house';
+                return `<span class="monster-token ${inHouse ? 'in-house' : ''}" title="${monster.name}">${monster.emoji}</span>`;
+            }).join('');
+        }
+
+        function renderArsenal() {
+            const arsenalHtml = WEAPONS.slice(0, 12).map(w => {
+                const elem = ELEMENTS[w.element];
+                const count = gameState.placedWeapons.filter(p => p.weaponId === w.id).length;
+                const canPlace = count < 2;
+                
+                return `
+                    <div class="arsenal-item ${!canPlace ? 'disabled' : ''} ${gameState.selectedArsenalWeapon === w.id ? 'selected' : ''}" 
+                         onclick="${canPlace ? `selectArsenalWeapon('${w.id}')` : ''}">
+                        <div style="font-size: 1.5em;">${elem.emoji}</div>
+                        <div style="font-weight: bold; margin: 5px 0; font-size: 0.85em;">${w.name}</div>
+                        <div style="font-size: 0.8em; color: #8b4513;">⚔️ ${w.firepower}d</div>
+                        <div style="font-size: 0.7em; color: ${canPlace ? '#22c55e' : '#ef4444'};">
+                            ${count}/2 usados
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('arsenal').innerHTML = arsenalHtml;
+        }
+
+        function selectArsenalWeapon(weaponId) {
+            if (gameState.phase !== 'setup') return;
+            
+            gameState.selectedArsenalWeapon = weaponId;
+            renderArsenal();
+            
+            // Highlight valid zones
+            document.querySelectorAll('.zone-yard, .zone-house').forEach(zone => {
+                zone.style.boxShadow = '0 0 20px rgba(34, 197, 94, 0.5)';
+            });
+        }
+
+        function placeWeapon(pathId, zone) {
+            if (gameState.phase !== 'setup' || !gameState.selectedArsenalWeapon) return;
+            
+            // Check if already has weapon
+            const exists = gameState.placedWeapons.find(w => w.path === pathId && w.zone === zone);
+            if (exists) return;
+            
+            gameState.placedWeapons.push({
+                id: `pw-${Date.now()}`,
+                weaponId: gameState.selectedArsenalWeapon,
+                path: pathId,
+                zone: zone
+            });
+            
+            gameState.selectedArsenalWeapon = null;
+            
+            // Remove highlight
+            document.querySelectorAll('.zone-yard, .zone-house').forEach(zone => {
+                zone.style.boxShadow = '';
+            });
+            
+            renderGameBoard();
+            renderArsenal();
+            updateGameStats();
+            
+            // Enable start button
+            document.getElementById('start-game-btn').disabled = gameState.placedWeapons.length < 3;
+        }
+
+        function removeWeapon(id) {
+            if (gameState.phase !== 'setup') return;
+            
+            gameState.placedWeapons = gameState.placedWeapons.filter(w => w.id !== id);
+            renderGameBoard();
+            renderArsenal();
+            updateGameStats();
+            
+            document.getElementById('start-game-btn').disabled = gameState.placedWeapons.length < 3;
+        }
+
+        function startGame() {
+            if (gameState.placedWeapons.length < 3) return;
+            
+            gameState.phase = 'playing';
+            gameState.turn = 1;
+            gameState.monsters = [spawnMonster()];
+            
+            document.getElementById('arsenal-card').classList.add('hidden');
+            document.getElementById('game-controls').classList.remove('hidden');
+            document.getElementById('combat-log-card').classList.remove('hidden');
+            document.getElementById('combat-log').innerHTML = '';
+            
+            renderGameBoard();
+            updateGameStats();
+        }
+
+        function spawnMonster() {
+            const regularMonsters = MONSTERS.filter(m => !m.isBoss);
+            const monster = regularMonsters[Math.floor(Math.random() * regularMonsters.length)];
+            const path = PATHS[Math.floor(Math.random() * PATHS.length)];
+            
+            return {
+                id: `m-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+                monsterId: monster.id,
+                hp: monster.hp,
+                path: path.id,
+                zone: 'street'
+            };
+        }
+
+        function nextTurn() {
+            // Process combat
+            const log = [];
+            
+            // Weapons attack
+            gameState.placedWeapons.forEach(pw => {
+                const weapon = WEAPONS.find(w => w.id === pw.weaponId);
+                const monstersHere = gameState.monsters.filter(m => 
+                    m.path === pw.path && m.zone === pw.zone && m.hp > 0
+                );
+                
+                monstersHere.forEach(m => {
+                    const monster = MONSTERS.find(mon => mon.id === m.monsterId);
+                    const elem = ELEMENTS[weapon.element];
+                    
+                    let dice = weapon.firepower;
+                    if (weapon.element === monster.weakness) dice++;
+                    
+                    let hits = 0;
+                    for (let i = 0; i < dice; i++) {
+                        if (Math.floor(Math.random() * 6) + 1 >= 4) hits++;
+                    }
+                    
+                    if (weapon.element === monster.resistance) hits = Math.max(0, hits - 1);
+                    
+                    m.hp -= hits;
+                    
+                    log.push({
+                        weapon: weapon.name,
+                        monster: monster.name,
+                        damage: hits,
+                        path: pw.path
+                    });
+                    
+                    if (m.hp <= 0) {
+                        gameState.defeated++;
+                    }
+                });
+            });
+            
+            // Remove dead monsters
+            gameState.monsters = gameState.monsters.filter(m => m.hp > 0);
+            
+            // Move monsters
+            gameState.monsters.forEach(m => {
+                if (m.zone === 'street') m.zone = 'yard';
+                else if (m.zone === 'yard') m.zone = 'house';
+                else if (m.zone === 'house') {
+                    gameState.escaped++;
+                    m.zone = 'escaped';
+                }
+            });
+            
+            // Remove escaped
+            gameState.monsters = gameState.monsters.filter(m => m.zone !== 'escaped');
+            
+            // Spawn new monsters
+            const spawnChance = 0.4 + (gameState.turn * 0.05);
+            if (Math.random() < spawnChance && gameState.monsters.length < 6) {
+                gameState.monsters.push(spawnMonster());
+            }
+            
+            // Update combat log
+            const logHtml = log.map(l => {
+                const pathName = PATHS.find(p => p.id === l.path).name;
+                return `<div style="padding: 5px; margin: 5px 0; background: ${l.damage > 0 ? '#dcfce7' : '#fee2e2'}; border-radius: 5px; font-size: 0.85em;">
+                    <strong>${l.weapon}</strong> → ${l.monster} (${pathName}): 
+                    <span style="color: ${l.damage > 0 ? '#22c55e' : '#ef4444'}; font-weight: bold;">
+                        ${l.damage > 0 ? '-' + l.damage : '🛡️'}
+                    </span>
+                </div>`;
+            }).join('');
+            
+            document.getElementById('combat-log').innerHTML = logHtml + document.getElementById('combat-log').innerHTML;
+            
+            // Check win/lose
+            if (gameState.escaped >= 3) {
+                showDefeat();
+                return;
+            }
+            
+            gameState.turn++;
+            
+            if (gameState.turn > 10 && gameState.monsters.length === 0) {
+                showVictory();
+                return;
+            }
+            
+            if (gameState.turn > 10) {
+                if (gameState.escaped < 3) {
+                    showVictory();
+                } else {
+                    showDefeat();
+                }
+                return;
+            }
+            
+            renderGameBoard();
+            updateGameStats();
+        }
+
+        function updateGameStats() {
+            document.getElementById('turn-count').textContent = gameState.turn;
+            document.getElementById('defeated-count').textContent = gameState.defeated;
+            document.getElementById('escaped-count').textContent = gameState.escaped;
+            
+            // Warning for monsters in house
+            const inHouse = gameState.monsters.filter(m => m.zone === 'house').length;
+            if (inHouse > 0 && gameState.phase === 'playing') {
+                const alert = document.createElement('div');
+                alert.className = 'alert alert-danger';
+                alert.innerHTML = `⚠️ ${inHouse} monstro(s) na casa! Eles vão invadir no próximo turno!`;
+            }
+        }
+
+        function showVictory() {
+            document.getElementById('final-defeated').textContent = gameState.defeated;
+            document.getElementById('final-escaped').textContent = gameState.escaped;
+            document.getElementById('victory-modal').classList.add('active');
+        }
+
+        function showDefeat() {
+            document.getElementById('final-defeated-d').textContent = gameState.defeated;
+            document.getElementById('final-escaped-d').textContent = gameState.escaped;
+            document.getElementById('defeat-modal').classList.add('active');
+        }
+
+        function resetGame() {
+            document.getElementById('victory-modal').classList.remove('active');
+            document.getElementById('defeat-modal').classList.remove('active');
+            initMiniGame();
+        }
+
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', () => {
+            initRecipeBook();
+            initCombat();
+            initMiniGame();
+        });
+    </script>
+</body>
+</html>
