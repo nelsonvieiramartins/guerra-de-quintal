@@ -1,10 +1,14 @@
 # 🏠 Guerra de Quintal: Mestres da Sucata
 
-Um protótipo digital do jogo de tabuleiro cooperativo onde crianças defendem seu quintal de criaturas do folclore brasileiro usando armas feitas de sucata!
+> Um protótipo digital do jogo de tabuleiro cooperativo onde crianças defendem seu quintal de criaturas do folclore brasileiro usando armas feitas de sucata!
 
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=flat-square&logo=tailwind-css)
+
+**🎮 [JOGAR AGORA](https://nelsonvieiramartins.github.io/guerra-de-quintal/)**
+
+---
 
 ## 🎮 Funcionalidades
 
@@ -31,6 +35,8 @@ Um protótipo digital do jogo de tabuleiro cooperativo onde crianças defendem s
 - Posicione armas estrategicamente
 - Defenda contra ondas de monstros aleatórios
 
+---
+
 ## 👹 Monstros
 
 | Monstro | HP | Fraqueza | Resistência |
@@ -42,35 +48,32 @@ Um protótipo digital do jogo de tabuleiro cooperativo onde crianças defendem s
 | 🔥 Boitatá | 4 | Gelo | Fogo/Sensores |
 | 🧙‍♀️ Cuca (Boss) | 10 | Dano Combinado | Tudo Isolado |
 
-## 🚀 Deploy no GitHub Pages
+---
 
-### Opção 1: Automático (GitHub Actions)
+## 📜 Regras do Jogo
 
-1. **Fork ou clone este repositório**
-2. **Vá em Settings > Pages**
-3. **Em "Source", selecione "GitHub Actions"**
-4. **Faça um push para a branch main/master**
+### Sistema de Combate
+1. Role dados d6 igual ao poder de fogo da arma
+2. Cada resultado 4, 5 ou 6 é um acerto
+3. Cada acerto causa 1 de dano
+4. Fraqueza elemental: +1 dado extra
+5. Resistência elemental: -1 sucesso
 
-O workflow irá automaticamente fazer o build e deploy!
+### Mini Jogo
+1. Posicione 3-6 armas nos caminhos (máx. 2 por caminho)
+2. Monstros aparecem aleatoriamente em um dos 3 caminhos
+3. Armas atacam monstros na mesma zona
+4. Monstros avançam uma zona por turno
+5. Se 3 monstros chegarem à casa, você perde!
+6. Sobreviva 10 turnos para vencer!
 
-### Opção 2: Manual
-
-```bash
-# Instalar dependências
-bun install
-
-# Build para exportação estática
-bun run build
-
-# O conteúdo estará em /out
-# Faça upload manual para GitHub Pages
-```
+---
 
 ## 💻 Desenvolvimento Local
 
 ```bash
 # Clonar o repositório
-git clone https://github.com/seu-usuario/guerra-de-quintal.git
+git clone https://github.com/nelsonvieiramartins/guerra-de-quintal.git
 cd guerra-de-quintal
 
 # Instalar dependências
@@ -81,6 +84,8 @@ bun run dev
 
 # Acesse http://localhost:3000
 ```
+
+---
 
 ## 📁 Estrutura do Projeto
 
@@ -106,8 +111,10 @@ bun run dev
 │   └── upload/               # Imagens das armas
 └── .github/
     └── workflows/
-        └── deploy.yml        # GitHub Actions
+        └── deploy.yml        # Deploy automático
 ```
+
+---
 
 ## 🎨 Visual
 
@@ -117,22 +124,7 @@ O jogo usa uma estética de **papel envelhecido** inspirada em artesanato brasil
 - Bordas rasgadas
 - Estilo handmade/desenhado à mão
 
-## 📜 Regras do Jogo
-
-### Sistema de Combate
-1. Role dados d6 igual ao poder de fogo da arma
-2. Cada resultado 4, 5 ou 6 é um acerto
-3. Cada acerto causa 1 de dano
-4. Fraqueza elemental: +1 dado extra
-5. Resistência elemental: -1 sucesso
-
-### Mini Jogo
-1. Posicione 3-6 armas nos caminhos (máx. 2 por caminho)
-2. Monstros aparecem aleatoriamente em um dos 3 caminhos
-3. Armas atacam monstros na mesma zona
-4. Monstros avançam uma zona por turno
-5. Se 3 monstros chegarem à casa, você perde!
-6. Sobreviva 10 turnos para vencer!
+---
 
 ## 📖 Créditos
 
