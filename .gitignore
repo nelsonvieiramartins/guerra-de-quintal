@@ -1,9 +1,5 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 node_modules
-/.pnp
-.pnp.*
 
 # next.js
 /.next/
@@ -17,11 +13,7 @@ node_modules
 *.pem
 
 # debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-bun-debug.log*
+*.log
 
 # env files
 .env*
@@ -32,34 +24,3 @@ bun-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# logs
-*.log
-server.log
-dev.log
-
-# local files
-local-*
-.claude
-.z-ai-config
-
-# skills directory
-/skills/
-
-# examples
-/examples/
-
-# mini-services
-/mini-services/
-
-# db
-/db/
-
-# docker
-.dockerignore
-
-# caddy
-Caddyfile
-
-# scripts
-.zscripts/
