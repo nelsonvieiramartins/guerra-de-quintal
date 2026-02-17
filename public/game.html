@@ -6,911 +6,198 @@
     <title>Guerra de Quintal: Mestres da Sucata</title>
     <style>
         /* ===== RESET & BASE ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Georgia', 'Times New Roman', serif;
             background: linear-gradient(135deg, #f4e4bc 0%, #e8d5b5 50%, #dcc9a5 100%);
-            min-height: 100vh;
-            color: #3d2817;
-            overflow-x: hidden;
+            min-height: 100vh; color: #3d2817; overflow-x: hidden;
         }
-
-        /* ===== PAPER TEXTURE OVERLAY ===== */
         .paper-texture {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139, 69, 19, 0.02) 2px, rgba(139, 69, 19, 0.02) 4px),
-                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(139, 69, 19, 0.02) 2px, rgba(139, 69, 19, 0.02) 4px);
-            pointer-events: none;
-            z-index: 1000;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139, 69, 19, 0.02) 2px, rgba(139, 69, 19, 0.02) 4px);
+            pointer-events: none; z-index: 1000;
         }
 
         /* ===== HEADER ===== */
         .header {
             background: linear-gradient(180deg, #8b4513 0%, #5c3310 100%);
-            padding: 15px 20px;
-            text-align: center;
+            padding: 15px 20px; text-align: center;
             border-bottom: 5px solid #cd853f;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            position: relative;
         }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-            opacity: 0.05;
-            pointer-events: none;
-        }
-
-        .header h1 {
-            color: #f4e4bc;
-            font-size: 2em;
-            text-shadow: 3px 3px 0 #3d2817, -1px -1px 0 #cd853f;
-            letter-spacing: 2px;
-        }
-
-        .header .subtitle {
-            color: #d4a574;
-            font-style: italic;
-            font-size: 1em;
-            margin-top: 5px;
-        }
+        .header h1 { color: #f4e4bc; font-size: 2em; text-shadow: 3px 3px 0 #3d2817; letter-spacing: 2px; }
+        .header .subtitle { color: #d4a574; font-style: italic; font-size: 1em; margin-top: 5px; }
 
         /* ===== NAVIGATION ===== */
-        .nav {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            padding: 15px;
-            flex-wrap: wrap;
-            background: rgba(139, 69, 19, 0.1);
-        }
-
+        .nav { display: flex; justify-content: center; gap: 10px; padding: 15px; flex-wrap: wrap; background: rgba(139, 69, 19, 0.1); }
         .nav-btn {
             background: linear-gradient(180deg, #cd853f 0%, #8b4513 100%);
-            border: 3px solid #5c3310;
-            color: #f4e4bc;
-            padding: 12px 25px;
-            font-size: 1em;
-            font-family: 'Georgia', serif;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+            border: 3px solid #5c3310; color: #f4e4bc;
+            padding: 12px 25px; font-size: 1em; font-family: 'Georgia', serif;
+            font-weight: bold; cursor: pointer; border-radius: 10px;
+            transition: all 0.3s ease; box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
         }
-
-        .nav-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 5px 5px 0 rgba(0,0,0,0.3);
-        }
-
-        .nav-btn.active {
-            background: linear-gradient(180deg, #d4a574 0%, #a0522d 100%);
-            border-color: #cd853f;
-            transform: scale(1.05);
-        }
+        .nav-btn:hover { transform: translateY(-3px); box-shadow: 5px 5px 0 rgba(0,0,0,0.3); }
+        .nav-btn.active { background: linear-gradient(180deg, #d4a574 0%, #a0522d 100%); border-color: #cd853f; transform: scale(1.05); }
 
         /* ===== MAIN CONTENT ===== */
-        .main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 15px;
-        }
-
-        .section {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .main { max-width: 1200px; margin: 0 auto; padding: 15px; }
+        .section { display: none; animation: fadeIn 0.5s ease; }
+        .section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         /* ===== CARDS ===== */
         .card {
             background: linear-gradient(135deg, #f9edd3 0%, #f4e4bc 50%, #e8d5b5 100%);
-            border: 3px solid #8b4513;
-            border-radius: 15px;
-            padding: 15px;
-            margin: 10px 0;
-            box-shadow: 5px 5px 0 rgba(139, 69, 19, 0.3), inset 0 0 30px rgba(139, 69, 19, 0.05);
+            border: 3px solid #8b4513; border-radius: 15px;
+            padding: 15px; margin: 10px 0;
+            box-shadow: 5px 5px 0 rgba(139, 69, 19, 0.3);
             position: relative;
         }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            opacity: 0.03;
-            pointer-events: none;
-            border-radius: inherit;
-        }
-
         .card-title {
-            font-size: 1.3em;
-            color: #8b4513;
-            text-align: center;
-            margin-bottom: 10px;
-            text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
-            border-bottom: 2px dashed #c9a66b;
-            padding-bottom: 8px;
+            font-size: 1.3em; color: #8b4513; text-align: center;
+            margin-bottom: 10px; text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+            border-bottom: 2px dashed #c9a66b; padding-bottom: 8px;
         }
 
-        /* ===== CRAFT CARD WITH IMAGE ===== */
+        /* ===== CRAFT CARD ===== */
         .craft-card {
             background: linear-gradient(180deg, #fff 0%, #f5f0e1 100%);
-            border: 3px solid #cd853f;
-            border-radius: 12px;
-            padding: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-            overflow: hidden;
+            border: 3px solid #cd853f; border-radius: 12px;
+            padding: 8px; text-align: center; cursor: pointer;
+            transition: all 0.3s ease; box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            min-width: 90px;
         }
-
-        .craft-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
-            border-color: #22c55e;
-        }
-
-        .craft-card.selected {
-            border-color: #22c55e;
-            box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
-            transform: scale(1.05);
-        }
-
-        .craft-card .card-image {
-            width: 100%;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 5px;
-            background: linear-gradient(135deg, #e8d5b5 0%, #dcc9a5 100%);
-        }
-
-        .craft-card .card-emoji {
-            font-size: 2.5em;
-            margin: 5px 0;
-        }
-
-        .craft-card .card-name {
-            font-size: 0.75em;
-            color: #5c3310;
-            font-weight: bold;
-            line-height: 1.2;
-        }
-
-        .craft-card .card-stats {
-            font-size: 0.7em;
-            color: #8b4513;
-            margin-top: 3px;
-        }
+        .craft-card:hover { transform: translateY(-5px); box-shadow: 5px 5px 15px rgba(0,0,0,0.3); border-color: #22c55e; }
+        .craft-card.selected { border-color: #22c55e; box-shadow: 0 0 20px rgba(34, 197, 94, 0.5); transform: scale(1.05); }
+        .craft-card.disabled { opacity: 0.4; cursor: not-allowed; }
+        .craft-card .card-image { width: 100%; height: 60px; object-fit: cover; border-radius: 8px; margin-bottom: 5px; background: #e8d5b5; }
+        .craft-card .card-emoji { font-size: 2em; margin: 5px 0; }
+        .craft-card .card-name { font-size: 0.75em; color: #5c3310; font-weight: bold; line-height: 1.2; }
+        .craft-card .card-type { font-size: 0.65em; color: #8b4513; margin-top: 2px; }
 
         /* ===== CRAFTING SLOTS ===== */
         .crafting-area {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            padding: 20px;
+            display: flex; justify-content: center; align-items: center;
+            gap: 10px; flex-wrap: wrap; padding: 20px;
             background: linear-gradient(180deg, rgba(139, 69, 19, 0.1) 0%, rgba(139, 69, 19, 0.05) 100%);
-            border-radius: 15px;
-            margin: 10px 0;
+            border-radius: 15px; margin: 10px 0;
         }
-
         .craft-slot {
-            width: 110px;
-            height: 150px;
-            border: 3px dashed #8b4513;
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            width: 100px; height: 140px;
+            border: 3px dashed #8b4513; border-radius: 12px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
             background: rgba(255,255,255,0.5);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
+            transition: all 0.3s ease; cursor: pointer; position: relative;
         }
+        .craft-slot:hover { border-style: solid; background: rgba(255,255,255,0.8); transform: scale(1.05); }
+        .craft-slot.filled { border-style: solid; border-color: #22c55e; background: linear-gradient(180deg, #dcfce7 0%, #bbf7d0 100%); }
+        .craft-slot .slot-image { width: 90%; height: 60px; object-fit: cover; border-radius: 8px; margin-bottom: 5px; }
+        .craft-slot .slot-emoji { font-size: 2em; }
+        .craft-slot .slot-label { font-size: 0.65em; color: #5c3310; margin-top: 3px; text-align: center; font-weight: bold; padding: 0 3px; }
+        .craft-slot .slot-type { font-size: 0.55em; color: #8b4513; position: absolute; bottom: 3px; }
 
-        .craft-slot:hover {
-            border-style: solid;
-            background: rgba(255,255,255,0.8);
-            transform: scale(1.05);
-        }
-
-        .craft-slot.filled {
-            border-style: solid;
-            border-color: #22c55e;
-            background: linear-gradient(180deg, #dcfce7 0%, #bbf7d0 100%);
-        }
-
-        .craft-slot .slot-image {
-            width: 90%;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 5px;
-        }
-
-        .craft-slot .slot-emoji {
-            font-size: 2.5em;
-        }
-
-        .craft-slot .slot-label {
-            font-size: 0.7em;
-            color: #5c3310;
-            margin-top: 5px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .craft-slot .slot-type {
-            font-size: 0.6em;
-            color: #8b4513;
-            position: absolute;
-            bottom: 5px;
-        }
-
-        .plus-sign {
-            font-size: 2em;
-            color: #8b4513;
-            font-weight: bold;
-        }
-
-        .equals-sign {
-            font-size: 2em;
-            color: #8b4513;
-            font-weight: bold;
-        }
-
-        /* ===== RESULT SLOT ===== */
+        .plus-sign, .equals-sign { font-size: 1.8em; color: #8b4513; font-weight: bold; }
         .result-slot {
-            width: 140px;
-            height: 180px;
-            border: 4px solid #cd853f;
-            border-radius: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            width: 120px; height: 160px;
+            border: 4px solid #cd853f; border-radius: 15px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
             background: linear-gradient(180deg, #f9edd3 0%, #f4e4bc 100%);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
+        .result-slot.filled { border-color: #22c55e; background: linear-gradient(180deg, #dcfce7 0%, #bbf7d0 100%); animation: resultPulse 1s ease; }
+        @keyframes resultPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-        .result-slot.filled {
-            border-color: #22c55e;
-            background: linear-gradient(180deg, #dcfce7 0%, #bbf7d0 100%);
-            animation: resultPulse 1s ease;
-        }
-
-        @keyframes resultPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        /* ===== WEAPON CARD RESULT ===== */
+        /* ===== WEAPON RESULT ===== */
         .weapon-result {
             background: linear-gradient(135deg, #2c1810 0%, #3d2817 50%, #2c1810 100%);
-            border: 4px solid #cd853f;
-            border-radius: 15px;
-            padding: 15px;
-            color: #f4e4bc;
-            text-align: center;
+            border: 4px solid #cd853f; border-radius: 15px;
+            padding: 12px; color: #f4e4bc; text-align: center;
             box-shadow: 0 5px 20px rgba(0,0,0,0.4);
             animation: weaponAppear 0.5s ease;
         }
-
-        @keyframes weaponAppear {
-            from { transform: scale(0) rotate(-10deg); opacity: 0; }
-            to { transform: scale(1) rotate(0deg); opacity: 1; }
-        }
-
-        .weapon-result .weapon-image {
-            width: 100%;
-            max-width: 200px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            border: 2px solid #cd853f;
-        }
-
-        .weapon-result .weapon-name {
-            font-size: 1.3em;
-            color: #cd853f;
-            margin-bottom: 5px;
-        }
-
-        .weapon-result .weapon-desc {
-            font-size: 0.8em;
-            color: #d4a574;
-            margin-bottom: 10px;
-        }
-
-        .weapon-result .weapon-stats {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .weapon-result .stat {
-            background: rgba(205, 133, 63, 0.2);
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.9em;
-        }
+        @keyframes weaponAppear { from { transform: scale(0) rotate(-10deg); opacity: 0; } to { transform: scale(1) rotate(0deg); opacity: 1; } }
+        .weapon-result .weapon-image { width: 100%; max-width: 150px; height: 80px; object-fit: cover; border-radius: 8px; margin-bottom: 8px; border: 2px solid #cd853f; }
+        .weapon-result .weapon-name { font-size: 1em; color: #cd853f; margin-bottom: 5px; }
+        .weapon-result .weapon-desc { font-size: 0.7em; color: #d4a574; margin-bottom: 8px; }
+        .weapon-result .weapon-stats { display: flex; justify-content: center; gap: 10px; }
+        .weapon-result .stat { background: rgba(205, 133, 63, 0.2); padding: 4px 10px; border-radius: 12px; font-size: 0.8em; }
 
         /* ===== BUTTONS ===== */
         .btn {
             background: linear-gradient(180deg, #cd853f 0%, #8b4513 100%);
-            border: 3px solid #5c3310;
-            color: #f4e4bc;
-            padding: 10px 20px;
-            font-size: 1em;
-            font-family: 'Georgia', serif;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+            border: 3px solid #5c3310; color: #f4e4bc;
+            padding: 10px 20px; font-size: 1em; font-family: 'Georgia', serif;
+            font-weight: bold; cursor: pointer; border-radius: 8px;
+            transition: all 0.3s ease; box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
         }
-
-        .btn:hover {
-            background: linear-gradient(180deg, #d4a574 0%, #a0522d 100%);
-            transform: translateY(-2px);
-            box-shadow: 5px 5px 0 rgba(0,0,0,0.3);
-        }
-
-        .btn:active { transform: translateY(1px); }
+        .btn:hover { background: linear-gradient(180deg, #d4a574 0%, #a0522d 100%); transform: translateY(-2px); }
         .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
         .btn-success { background: linear-gradient(180deg, #4ade80 0%, #22c55e 100%); border-color: #166534; }
         .btn-danger { background: linear-gradient(180deg, #f87171 0%, #ef4444 100%); border-color: #991b1b; }
 
-        /* ===== POPUP MODAL ===== */
+        /* ===== POPUP ===== */
         .popup-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(44, 24, 16, 0.8);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(44, 24, 16, 0.85); z-index: 2000;
+            align-items: center; justify-content: center;
             animation: overlayFade 0.3s ease;
         }
-
-        .popup-overlay.active {
-            display: flex;
-        }
-
-        @keyframes overlayFade {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
+        .popup-overlay.active { display: flex; }
+        @keyframes overlayFade { from { opacity: 0; } to { opacity: 1; } }
         .popup {
             background: linear-gradient(135deg, #f9edd3 0%, #f4e4bc 50%, #e8d5b5 100%);
-            border: 5px solid #8b4513;
-            border-radius: 20px;
-            padding: 20px;
-            max-width: 90vw;
-            max-height: 90vh;
-            overflow-y: auto;
-            animation: popupSlide 0.3s ease;
-            position: relative;
+            border: 5px solid #8b4513; border-radius: 20px;
+            padding: 20px; max-width: 95vw; max-height: 90vh;
+            overflow-y: auto; animation: popupSlide 0.3s ease;
             box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
-
-        @keyframes popupSlide {
-            from { transform: scale(0.8) translateY(-50px); opacity: 0; }
-            to { transform: scale(1) translateY(0); opacity: 1; }
-        }
-
-        .popup::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='pn'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23pn)'/%3E%3C/svg%3E");
-            opacity: 0.03;
-            pointer-events: none;
-            border-radius: inherit;
-        }
-
-        .popup-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px dashed #c9a66b;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
-
-        .popup-title {
-            font-size: 1.5em;
-            color: #8b4513;
-            text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
-        }
-
+        @keyframes popupSlide { from { transform: scale(0.8) translateY(-50px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
+        .popup-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed #c9a66b; padding-bottom: 10px; margin-bottom: 15px; }
+        .popup-title { font-size: 1.4em; color: #8b4513; text-shadow: 1px 1px 0 rgba(255,255,255,0.5); }
         .popup-close {
             background: linear-gradient(180deg, #f87171 0%, #ef4444 100%);
-            border: 2px solid #991b1b;
-            color: #fff;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border: 2px solid #991b1b; color: #fff;
+            width: 35px; height: 35px; border-radius: 50%;
+            font-size: 1.2em; cursor: pointer; display: flex;
+            align-items: center; justify-content: center;
         }
+        .popup-close:hover { transform: scale(1.1); }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(95px, 1fr)); gap: 10px; max-height: 60vh; overflow-y: auto; padding: 5px; }
 
-        .popup-close:hover {
-            transform: scale(1.1);
-        }
+        /* ===== INFO BADGE ===== */
+        .info-badge { font-size: 0.6em; padding: 2px 6px; border-radius: 10px; margin-left: 5px; }
+        .badge-free { background: #22c55e; color: #fff; }
+        .badge-paid { background: #f59e0b; color: #fff; }
 
-        .popup-content {
-            position: relative;
-            z-index: 1;
-        }
+        /* ===== RECIPE TABLE ===== */
+        .recipe-table { width: 100%; border-collapse: collapse; font-size: 0.8em; margin-top: 10px; }
+        .recipe-table th, .recipe-table td { border: 1px solid #8b4513; padding: 6px; text-align: center; }
+        .recipe-table th { background: rgba(139, 69, 19, 0.2); color: #5c3310; }
+        .recipe-table td { background: rgba(255,255,255,0.5); }
+        .recipe-table .empty { background: rgba(0,0,0,0.1); color: #999; }
 
-        /* ===== CARD GRID IN POPUP ===== */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 10px;
-            max-height: 60vh;
-            overflow-y: auto;
-            padding: 5px;
-        }
-
-        /* ===== MONSTER CARD ===== */
-        .monster-card {
-            background: linear-gradient(135deg, #1a0f0a 0%, #2c1810 100%);
-            border: 4px solid #8b4513;
-            border-radius: 15px;
-            padding: 15px;
-            color: #f4e4bc;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-            transition: all 0.3s ease;
-        }
-
-        .monster-card:hover {
-            transform: scale(1.02);
-            border-color: #cd853f;
-        }
-
-        .monster-card .monster-emoji {
-            font-size: 4em;
-            margin-bottom: 10px;
-        }
-
-        .monster-card .monster-name {
-            font-size: 1.2em;
-            color: #cd853f;
-            margin-bottom: 5px;
-        }
-
-        .monster-card .monster-hp {
-            display: flex;
-            justify-content: center;
-            gap: 3px;
-            margin: 10px 0;
-        }
-
-        .hp-heart {
-            font-size: 1em;
-            transition: all 0.3s ease;
-        }
-
-        .hp-heart.lost {
-            opacity: 0.3;
-            filter: grayscale(1);
-        }
-
-        /* ===== DICE ===== */
-        .dice-container {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin: 15px 0;
-        }
-
-        .dice {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, #fff 0%, #e8e8e8 100%);
-            border: 3px solid #333;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3em;
-            font-weight: bold;
-            box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
-        }
-
-        .dice.hit {
-            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
-            border-color: #166534;
-            color: #fff;
-            animation: diceHit 0.5s ease;
-        }
-
-        .dice.miss {
-            background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
-            border-color: #991b1b;
-            color: #fff;
-            animation: diceMiss 0.5s ease;
-        }
-
-        @keyframes diceHit {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        @keyframes diceMiss {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            25% { transform: scale(0.9) rotate(-5deg); }
-            75% { transform: scale(0.9) rotate(5deg); }
-        }
-
-        .dice.rolling {
-            animation: diceRoll 0.5s ease infinite;
-        }
-
-        @keyframes diceRoll {
-            0% { transform: rotateX(0deg) rotateY(0deg); }
-            25% { transform: rotateX(90deg) rotateY(45deg); }
-            50% { transform: rotateX(180deg) rotateY(90deg); }
-            75% { transform: rotateX(270deg) rotateY(135deg); }
-            100% { transform: rotateX(360deg) rotateY(180deg); }
-        }
-
-        /* ===== MINI GAME BOARD ===== */
-        .game-board {
-            background: linear-gradient(180deg, #2d5a27 0%, #1e3d1a 100%);
-            border: 5px solid #5c3310;
-            border-radius: 15px;
-            padding: 15px;
-            margin: 15px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .game-board::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-            opacity: 0.1;
-            pointer-events: none;
-        }
-
-        .board-header {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-            text-align: center;
-            color: #f4e4bc;
-            margin-bottom: 10px;
-            font-weight: bold;
-            font-size: 0.8em;
-        }
-
-        .board-row {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-
-        .path-label {
-            background: linear-gradient(180deg, #8b4513 0%, #5c3310 100%);
-            color: #f4e4bc;
-            padding: 8px;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 0.85em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-
-        .zone {
-            min-height: 60px;
-            border-radius: 8px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            padding: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .zone-street {
-            background: linear-gradient(180deg, #6b7280 0%, #4b5563 100%);
-            border: 2px solid #374151;
-        }
-
-        .zone-yard {
-            background: linear-gradient(180deg, #22c55e 0%, #16a34a 100%);
-            border: 2px solid #15803d;
-        }
-
-        .zone-yard:hover {
-            box-shadow: 0 0 15px rgba(34, 197, 94, 0.5);
-        }
-
-        .zone-house {
-            background: linear-gradient(180deg, #92400e 0%, #78350f 100%);
-            border: 2px solid #451a03;
-        }
-
-        .zone-house:hover {
-            box-shadow: 0 0 15px rgba(234, 88, 12, 0.5);
-        }
-
-        .zone-room {
-            background: linear-gradient(180deg, #7c3aed 0%, #5b21b6 100%);
-            border: 2px solid #4c1d95;
-            color: #fff;
-            font-size: 0.75em;
-            text-align: center;
-        }
-
-        .placed-weapon {
-            background: rgba(255,255,255,0.9);
-            border-radius: 5px;
-            padding: 3px 6px;
-            font-size: 0.7em;
-            color: #333;
-            cursor: pointer;
-        }
-
-        .placed-weapon:hover {
-            background: #f87171;
-            color: #fff;
-        }
-
-        .monster-token {
-            font-size: 1.5em;
-            animation: monsterBounce 1s ease infinite;
-        }
-
-        @keyframes monsterBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-3px); }
-        }
-
-        /* ===== ARSENAL ===== */
-        .arsenal {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .arsenal-item {
-            background: linear-gradient(180deg, #f9edd3 0%, #f4e4bc 100%);
-            border: 3px solid #cd853f;
-            border-radius: 10px;
-            padding: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .arsenal-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
-        }
-
-        .arsenal-item.selected {
-            border-color: #22c55e;
-            background: linear-gradient(180deg, #dcfce7 0%, #bbf7d0 100%);
-            box-shadow: 0 0 15px rgba(34, 197, 94, 0.5);
-        }
-
-        .arsenal-item.disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-
-        .arsenal-item .arsenal-image {
-            width: 100%;
-            height: 50px;
-            object-fit: cover;
-            border-radius: 5px;
-            margin-bottom: 5px;
-        }
-
-        /* ===== STATS BAR ===== */
-        .stats-bar {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            background: linear-gradient(180deg, #8b4513 0%, #5c3310 100%);
-            padding: 10px;
-            border-radius: 10px;
-            color: #f4e4bc;
-            margin-bottom: 10px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.9em;
-        }
-
-        .stat-value {
-            font-weight: bold;
-            font-size: 1.1em;
-            color: #cd853f;
-        }
-
-        /* ===== ALERT ===== */
-        .alert {
-            padding: 10px 15px;
-            border-radius: 8px;
-            margin: 10px 0;
-            text-align: center;
-            font-weight: bold;
-            font-size: 0.9em;
-        }
-
-        .alert-danger {
-            background: linear-gradient(180deg, #fef2f2 0%, #fee2e2 100%);
-            border: 3px solid #ef4444;
-            color: #991b1b;
-        }
-
-        .alert-success {
-            background: linear-gradient(180deg, #f0fdf4 0%, #dcfce7 100%);
-            border: 3px solid #22c55e;
-            color: #166534;
-        }
-
-        /* ===== MODAL RESULT ===== */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.7);
-            z-index: 3000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: linear-gradient(135deg, #f9edd3 0%, #f4e4bc 100%);
-            border: 5px solid #8b4513;
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 400px;
-            text-align: center;
-            animation: modalSlide 0.3s ease;
-        }
-
-        @keyframes modalSlide {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .modal-content .emoji-big {
-            font-size: 5em;
-            margin: 20px 0;
-        }
-
-        /* ===== COMBAT RESULT ===== */
-        .combat-result {
-            background: linear-gradient(135deg, #1e3d1a 0%, #0f1f0d 100%);
-            border: 4px solid #22c55e;
-            border-radius: 15px;
-            padding: 15px;
-            margin: 15px 0;
-            text-align: center;
-            color: #f4e4bc;
-        }
-
-        .combat-result .result-title {
-            font-size: 1.3em;
-            color: #4ade80;
-            margin-bottom: 10px;
-        }
-
-        .combat-result .result-stats {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-top: 10px;
-        }
-
-        .combat-result .result-stat .value {
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #cd853f;
-        }
-
-        .combat-result .result-stat .label {
-            font-size: 0.75em;
-            color: #a3a3a3;
-        }
-
-        /* ===== GRID LAYOUTS ===== */
+        /* ===== GRID ===== */
         .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
         .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-
         @media (max-width: 768px) {
             .grid-2, .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
-            .board-header, .board-row { grid-template-columns: repeat(5, 1fr); font-size: 0.65em; }
-            .zone { min-height: 45px; }
             .crafting-area { flex-direction: column; }
             .plus-sign, .equals-sign { transform: rotate(90deg); }
         }
 
-        /* ===== UTILITY ===== */
         .text-center { text-align: center; }
         .mt-15 { margin-top: 15px; }
-        .mb-15 { margin-bottom: 15px; }
         .hidden { display: none !important; }
-        .flex-center { display: flex; align-items: center; justify-content: center; gap: 10px; }
 
         /* ===== FOOTER ===== */
         .footer {
             background: linear-gradient(180deg, #5c3310 0%, #3d2817 100%);
-            padding: 15px;
-            text-align: center;
-            color: #d4a574;
-            margin-top: 20px;
-            border-top: 5px solid #8b4513;
+            padding: 15px; text-align: center; color: #d4a574;
+            margin-top: 20px; border-top: 5px solid #8b4513;
         }
-
-        .footer .stats {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 8px;
-            font-size: 0.85em;
-            flex-wrap: wrap;
-        }
+        .footer .stats { display: flex; justify-content: center; gap: 15px; margin-top: 8px; font-size: 0.85em; flex-wrap: wrap; }
     </style>
 </head>
 <body>
@@ -925,9 +212,8 @@
     <!-- NAVIGATION -->
     <nav class="nav">
         <button class="nav-btn active" onclick="showSection('crafting')">🔧 Crafting</button>
-        <button class="nav-btn" onclick="showSection('combat')">⚔️ Combate</button>
-        <button class="nav-btn" onclick="showSection('minigame')">🎮 Mini Jogo</button>
-        <button class="nav-btn" onclick="showSection('rules')">📖 Regras</button>
+        <button class="nav-btn" onclick="showSection('recipes')">📖 Receitas</button>
+        <button class="nav-btn" onclick="showSection('rules')">📜 Regras</button>
     </nav>
 
     <!-- MAIN CONTENT -->
@@ -937,34 +223,46 @@
         <section id="crafting" class="section active">
             <div class="card">
                 <h2 class="card-title">🔧 Oficina de Crafting</h2>
-                <p class="text-center mb-15" style="color: #5c3310;">
-                    Clique nos slots para escolher as cartas e criar armas poderosas!
+                <p class="text-center" style="color: #5c3310; font-size: 0.9em; margin-bottom: 15px;">
+                    Combine os itens para criar armas e armadilhas! Clique nos slots para selecionar.
                 </p>
 
                 <!-- Crafting Area -->
                 <div class="crafting-area">
                     <div class="craft-slot" id="slot-essential" onclick="openCardPicker('essential')">
                         <div class="slot-emoji">❓</div>
-                        <div class="slot-label">Selecione</div>
-                        <div class="slot-type">Essencial</div>
+                        <div class="slot-label">Item Essencial</div>
+                        <div class="slot-type">Coração</div>
                     </div>
                     <span class="plus-sign">+</span>
                     <div class="craft-slot" id="slot-base" onclick="openCardPicker('base')">
                         <div class="slot-emoji">❓</div>
-                        <div class="slot-label">Selecione</div>
-                        <div class="slot-type">Base</div>
+                        <div class="slot-label">Base</div>
+                        <div class="slot-type">Suporte</div>
                     </div>
                     <span class="plus-sign">+</span>
-                    <div class="craft-slot" id="slot-basic" onclick="openCardPicker('basic')">
+                    <div class="craft-slot" id="slot-basic-free" onclick="openCardPicker('basicFree')">
                         <div class="slot-emoji">❓</div>
-                        <div class="slot-label">Selecione</div>
-                        <div class="slot-type">Básico</div>
+                        <div class="slot-label">Básico Grátis</div>
+                        <div class="slot-type">🆓 Gratuito</div>
+                    </div>
+                    <span class="plus-sign">+</span>
+                    <div class="craft-slot" id="slot-basic-paid" onclick="openCardPicker('basicPaid')">
+                        <div class="slot-emoji">❓</div>
+                        <div class="slot-label">Básico 1💰</div>
+                        <div class="slot-type">1 Moeda</div>
                     </div>
                     <span class="plus-sign">+</span>
                     <div class="craft-slot" id="slot-trigger" onclick="openCardPicker('trigger')">
                         <div class="slot-emoji">❓</div>
-                        <div class="slot-label">Selecione</div>
+                        <div class="slot-label">Acionador</div>
                         <div class="slot-type">Gatilho</div>
+                    </div>
+                    <span class="plus-sign">+</span>
+                    <div class="craft-slot" id="slot-ammo" onclick="openCardPicker('ammo')">
+                        <div class="slot-emoji">❓</div>
+                        <div class="slot-label">Munição</div>
+                        <div class="slot-type">Carga</div>
                     </div>
                     <span class="equals-sign">=</span>
                     <div class="result-slot" id="result-slot">
@@ -973,118 +271,56 @@
                     </div>
                 </div>
 
-                <!-- Craft Buttons -->
+                <!-- Buttons -->
                 <div class="text-center mt-15">
                     <button class="btn btn-success" id="craft-btn" onclick="craft()" disabled>🔨 Criar Arma!</button>
                     <button class="btn" onclick="resetCrafting()" style="margin-left: 10px;">🔄 Limpar</button>
                 </div>
             </div>
 
-            <!-- Recipe Book -->
+            <!-- Instructions -->
             <div class="card">
-                <h3 class="card-title">📖 Livro de Receitas</h3>
-                <div class="grid-4" id="recipe-book"></div>
+                <h3 class="card-title">📋 Como Funciona</h3>
+                <div style="line-height: 1.8; color: #5c3310; font-size: 0.9em;">
+                    <p><strong>6 Componentes para criar uma arma:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>❤️ Item Essencial (Coração):</strong> O componente principal da arma</li>
+                        <li><strong>📦 Base (Suporte):</strong> Estrutura de suporte</li>
+                        <li><strong>🆓 Básico Gratuito:</strong> Material básico sem custo</li>
+                        <li><strong>💰 Básico 1 Moeda:</strong> Material que custa 1 moeda</li>
+                        <li><strong>⚡ Acionador (Gatilho):</strong> Mecanismo de ativação</li>
+                        <li><strong>🎯 Munição (Carga):</strong> Projétil ou carga da arma</li>
+                    </ul>
+                    <p style="margin-top: 10px; font-style: italic; color: #8b4513;">
+                        💡 Alguns componentes podem ficar vazios (−) dependendo da receita!
+                    </p>
+                </div>
             </div>
         </section>
 
-        <!-- COMBAT SECTION -->
-        <section id="combat" class="section">
+        <!-- RECIPES SECTION -->
+        <section id="recipes" class="section">
             <div class="card">
-                <h3 class="card-title">⚔️ Arena de Combate</h3>
-                <p class="text-center mb-15" style="color: #5c3310;">
-                    Selecione uma arma e um monstro para iniciar o combate!
+                <h2 class="card-title">📖 Livro de Receitas</h2>
+                <p class="text-center" style="color: #5c3310; margin-bottom: 15px;">
+                    Todas as 21 armas e armadilhas disponíveis
                 </p>
-                
-                <div class="grid-2">
-                    <div>
-                        <h4 class="text-center" style="color: #8b4513; margin-bottom: 10px;">Escolha sua Arma</h4>
-                        <div class="grid-3" id="weapon-picker"></div>
-                    </div>
-                    <div>
-                        <h4 class="text-center" style="color: #8b4513; margin-bottom: 10px;">Escolha o Monstro</h4>
-                        <div class="grid-3" id="monster-picker"></div>
-                    </div>
+                <div style="overflow-x: auto;">
+                    <table class="recipe-table" id="recipe-table"></table>
                 </div>
-
-                <div class="text-center mt-15">
-                    <button class="btn btn-danger" id="attack-btn" onclick="attack()" disabled>⚔️ ATACAR!</button>
-                </div>
-            </div>
-
-            <!-- Combat Result -->
-            <div class="combat-result hidden" id="combat-result">
-                <div class="result-title" id="combat-title">Resultado do Combate</div>
-                <div class="dice-container" id="dice-result"></div>
-                <div class="result-stats">
-                    <div class="result-stat">
-                        <div class="value" id="hits-count">0</div>
-                        <div class="label">Acertos</div>
-                    </div>
-                    <div class="result-stat">
-                        <div class="value" id="damage-count">0</div>
-                        <div class="label">Dano</div>
-                    </div>
-                    <div class="result-stat">
-                        <div class="value" id="monster-hp">0</div>
-                        <div class="label">HP Restante</div>
-                    </div>
-                </div>
-                <div id="elemental-info" class="mt-15"></div>
-            </div>
-        </section>
-
-        <!-- MINI GAME SECTION -->
-        <section id="minigame" class="section">
-            <div class="stats-bar">
-                <div class="stat-item">🎯 Turno: <span class="stat-value" id="turn-count">0</span>/10</div>
-                <div class="stat-item">💀 Derrotados: <span class="stat-value" id="defeated-count">0</span></div>
-                <div class="stat-item">🚪 Invadiram: <span class="stat-value" id="escaped-count">0</span>/3</div>
-            </div>
-
-            <div class="game-board">
-                <div class="board-header">
-                    <div>Caminho</div>
-                    <div>🛣️ Rua</div>
-                    <div>🌳 Quintal</div>
-                    <div>🏠 Casa</div>
-                    <div>📍 Cômodo</div>
-                </div>
-                <div id="game-paths"></div>
-            </div>
-
-            <div class="card" id="arsenal-card">
-                <h3 class="card-title">🔧 Arsenal - Clique em uma arma e depois no local</h3>
-                <div class="arsenal" id="arsenal"></div>
-                <div class="text-center mt-15">
-                    <button class="btn btn-success" id="start-game-btn" onclick="startGame()" disabled>▶️ Iniciar (mín. 3 armas)</button>
-                </div>
-            </div>
-
-            <div class="card hidden" id="game-controls">
-                <div class="text-center">
-                    <button class="btn btn-success" onclick="nextTurn()">⏭️ Próximo Turno</button>
-                    <button class="btn" onclick="resetGame()" style="margin-left: 10px;">🔄 Reiniciar</button>
-                </div>
-            </div>
-
-            <div class="card hidden" id="combat-log-card">
-                <h3 class="card-title">📜 Log de Combate</h3>
-                <div id="combat-log" style="max-height: 120px; overflow-y: auto;"></div>
             </div>
         </section>
 
         <!-- RULES SECTION -->
         <section id="rules" class="section">
             <div class="card">
-                <h2 class="card-title">📖 Regras do Jogo</h2>
+                <h2 class="card-title">📜 Regras do Jogo</h2>
                 <div style="line-height: 1.8; color: #5c3310; padding: 10px;">
                     <h3 style="color: #8b4513; margin: 15px 0 10px;">🔧 Sistema de Crafting</h3>
-                    <p>Combine 4 tipos de cartas para criar armas:</p>
                     <ul style="margin-left: 20px;">
-                        <li><strong>Essencial:</strong> O componente principal (Nerf, Mangueira, etc.)</li>
-                        <li><strong>Base:</strong> Suporte ou estrutura (Tripé, Tubo, etc.)</li>
-                        <li><strong>Básico:</strong> Material ou elemento (Água, Fogo, Eletricidade)</li>
-                        <li><strong>Gatilho:</strong> Mecanismo de ativação (Sensor)</li>
+                        <li>Combine 6 tipos de componentes para criar armas</li>
+                        <li>Alguns slots podem ficar vazios (−) em certas receitas</li>
+                        <li>Cada arma tem poder de fogo e elemento diferentes</li>
                     </ul>
 
                     <h3 style="color: #8b4513; margin: 15px 0 10px;">⚔️ Sistema de Combate</h3>
@@ -1096,13 +332,14 @@
                         <li><strong>Resistência elemental:</strong> -1 sucesso</li>
                     </ul>
 
-                    <h3 style="color: #8b4513; margin: 15px 0 10px;">🎮 Mini Jogo</h3>
+                    <h3 style="color: #8b4513; margin: 15px 0 10px;">👹 Monstros do Folclore</h3>
                     <ul style="margin-left: 20px;">
-                        <li>3 caminhos levam aos cômodos da casa</li>
-                        <li>Posicione armas estrategicamente (máx. 2 por caminho)</li>
-                        <li>Monstros aparecem aleatoriamente</li>
-                        <li>Se 3 monstros invadirem, você perde!</li>
-                        <li>Sobreviva 10 turnos para vencer!</li>
+                        <li><strong>🌀 Saci:</strong> HP 3 - Fraqueza: Terra - Resistência: Físico</li>
+                        <li><strong>🐴 Mula Sem Cabeça:</strong> HP 5 - Fraqueza: Água - Resistência: Fogo</li>
+                        <li><strong>🐕 Capelobo:</strong> HP 4 - Fraqueza: Elétrico - Resistência: Físico</li>
+                        <li><strong>🌲 Curupira:</strong> HP 3 - Fraqueza: Físico - Resistência: Elétrico</li>
+                        <li><strong>🔥 Boitatá:</strong> HP 4 - Fraqueza: Gelo - Resistência: Fogo</li>
+                        <li><strong>🧙‍♀️ Cuca (Boss):</strong> HP 10 - Fraqueza: Dano Combinado</li>
                     </ul>
                 </div>
             </div>
@@ -1112,65 +349,12 @@
 
     <!-- POPUP FOR CARD PICKER -->
     <div class="popup-overlay" id="card-picker-popup">
-        <div class="popup" style="width: 600px;">
+        <div class="popup" style="width: 650px;">
             <div class="popup-header">
                 <h3 class="popup-title" id="picker-title">Escolha uma Carta</h3>
                 <button class="popup-close" onclick="closePopup()">×</button>
             </div>
-            <div class="popup-content">
-                <div class="card-grid" id="picker-cards"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- POPUP FOR WEAPON DETAIL -->
-    <div class="popup-overlay" id="weapon-detail-popup">
-        <div class="popup" style="width: 400px;">
-            <div class="popup-header">
-                <h3 class="popup-title" id="weapon-detail-title">Arma</h3>
-                <button class="popup-close" onclick="closeWeaponDetail()">×</button>
-            </div>
-            <div class="popup-content" id="weapon-detail-content"></div>
-        </div>
-    </div>
-
-    <!-- VICTORY MODAL -->
-    <div class="modal" id="victory-modal">
-        <div class="modal-content">
-            <div class="emoji-big">🎉</div>
-            <h2 style="color: #22c55e; font-size: 2em;">VITÓRIA!</h2>
-            <p style="margin: 10px 0;">Você defendeu sua casa!</p>
-            <div class="flex-center" style="margin: 20px 0;">
-                <div style="text-align: center;">
-                    <div style="font-size: 2em; color: #22c55e;" id="final-defeated">0</div>
-                    <div>Derrotados</div>
-                </div>
-                <div style="text-align: center;">
-                    <div style="font-size: 2em; color: #ef4444;" id="final-escaped">0</div>
-                    <div>Escaparam</div>
-                </div>
-            </div>
-            <button class="btn btn-success" onclick="resetGame()">🔄 Jogar Novamente</button>
-        </div>
-    </div>
-
-    <!-- DEFEAT MODAL -->
-    <div class="modal" id="defeat-modal">
-        <div class="modal-content">
-            <div class="emoji-big">💀</div>
-            <h2 style="color: #ef4444; font-size: 2em;">DERROTA!</h2>
-            <p style="margin: 10px 0;">Monstros invadiram sua casa!</p>
-            <div class="flex-center" style="margin: 20px 0;">
-                <div style="text-align: center;">
-                    <div style="font-size: 2em; color: #22c55e;" id="final-defeated-d">0</div>
-                    <div>Derrotados</div>
-                </div>
-                <div style="text-align: center;">
-                    <div style="font-size: 2em; color: #ef4444;" id="final-escaped-d">0</div>
-                    <div>Invadiram</div>
-                </div>
-            </div>
-            <button class="btn btn-danger" onclick="resetGame()">🔄 Tentar Novamente</button>
+            <div class="card-grid" id="picker-cards"></div>
         </div>
     </div>
 
@@ -1178,18 +362,16 @@
     <footer class="footer">
         <p>🎲 Guerra de Quintal: Mestres da Sucata</p>
         <div class="stats">
-            <span>🃏 23 Armas</span>
+            <span>🔧 21 Armas</span>
+            <span>•</span>
+            <span>📦 6 Tipos de Componentes</span>
             <span>•</span>
             <span>👹 6 Monstros</span>
-            <span>•</span>
-            <span>🎲 Sistema d6</span>
-            <span>•</span>
-            <span>🎨 29 Imagens</span>
         </div>
     </footer>
 
     <script>
-        // ===== GAME DATA =====
+        // ===== GAME DATA FROM SPREADSHEET =====
         const ELEMENTS = {
             physical: { name: 'Físico', emoji: '⚔️', color: '#8B4513' },
             fire: { name: 'Fogo', emoji: '🔥', color: '#FF4500' },
@@ -1200,145 +382,120 @@
             sound: { name: 'Som', emoji: '📢', color: '#9370DB' }
         };
 
-        // Craft images mapping
-        const CRAFT_IMAGES = [
-            'craft/arma_nerf_sentinela.webp',
-            'craft/arma_vulcan.webp',
-            'craft/arma_fogo.webp',
-            'craft/arma_canhao.webp',
-            'craft/arma_mina.webp',
-            'craft/arma_teia.webp',
-            'craft/arma_pendulo.webp',
-            'craft/arma_choque.webp',
-            'craft/arma_spray.webp',
-            'craft/craft_01.webp',
-            'craft/craft_02.webp',
-            'craft/craft_03.webp',
-            'craft/craft_04.webp',
-            'craft/craft_05.webp',
-            'craft/craft_06.webp',
-            'craft/craft_07.webp',
-            'craft/craft_08.webp',
-            'craft/craft_09.webp',
-            'craft/craft_10.webp',
-            'craft/craft_11.webp',
-            'craft/craft_12.webp',
-            'craft/craft_13.webp',
-            'craft/craft_14.webp',
-            'craft/craft_15.webp',
-            'craft/craft_16.webp',
-            'craft/craft_17.webp',
-            'craft/craft_18.webp',
-            'craft/craft_19.webp',
-            'craft/craft_20.webp'
-        ];
-
+        // ALL WEAPONS FROM SPREADSHEET
         const WEAPONS = [
-            { id: 'w1', name: 'Sentinela Nerf', element: 'physical', firepower: 3, desc: 'Pistola Nerf em ventilador rotativo', img: 'craft/arma_nerf_sentinela.webp' },
-            { id: 'w2', name: 'Metralhadora Vulcan', element: 'physical', firepower: 5, desc: 'Nerf Vulcan em tripé defensivo', img: 'craft/arma_vulcan.webp' },
-            { id: 'w3', name: 'Sentinela de Fogo', element: 'fire', firepower: 4, desc: 'Super Soaker com líquido inflamável', img: 'craft/arma_fogo.webp' },
-            { id: 'w4', name: 'Canhão de Tênis', element: 'physical', firepower: 3, desc: 'Canhão caseiro de bolas de tênis', img: 'craft/arma_canhao.webp' },
-            { id: 'w5', name: 'Mina de Goma', element: 'earth', firepower: 2, desc: 'Armadilha explosiva de geleca', img: 'craft/arma_mina.webp' },
-            { id: 'w6', name: 'Lançador de Geleca', element: 'earth', firepower: 2, desc: 'Dispositivo lança-gelatina', img: 'craft/arma_mina.webp' },
-            { id: 'w7', name: 'Armadilha de Gude', element: 'earth', firepower: 1, desc: 'Bolinhas de gude escorregadias', img: 'craft/arma_teia.webp' },
-            { id: 'w8', name: 'Morteiro D\'água', element: 'water', firepower: 3, desc: 'Canhão de água de PVC', img: 'craft/arma_canhao.webp' },
-            { id: 'w9', name: 'Armadilha Espanador', element: 'physical', firepower: 1, desc: 'Nuvem de poeira surpresa', img: 'craft/arma_teia.webp' },
-            { id: 'w10', name: 'Teia de Aranha', element: 'earth', firepower: 2, desc: 'Teia gigante de barbante', img: 'craft/arma_teia.webp' },
-            { id: 'w11', name: 'Cobra de Mangueira', element: 'water', firepower: 2, desc: 'Mangueira esguichadora', img: 'craft/arma_spray.webp' },
-            { id: 'w12', name: 'Spray de Pimenta', element: 'fire', firepower: 3, desc: 'Jato de pimenta concentrada', img: 'craft/arma_spray.webp' },
-            { id: 'w13', name: 'Espantalho', element: 'physical', firepower: 1, desc: 'Espantalho assustador', img: 'craft/arma_teia.webp' },
-            { id: 'w14', name: 'Bambolê de Fogo', element: 'fire', firepower: 4, desc: 'Barreira de fogo giratória', img: 'craft/arma_fogo.webp' },
-            { id: 'w15', name: 'Tapete de Brasas', element: 'fire', firepower: 3, desc: 'Tapete com carvão em brasa', img: 'craft/arma_fogo.webp' },
-            { id: 'w16', name: 'Aspersor de Lama', element: 'earth', firepower: 2, desc: 'Jato de lama', img: 'craft/arma_spray.webp' },
-            { id: 'w17', name: 'Pêndulo de Pneu', element: 'physical', firepower: 4, desc: 'Pneu balançante', img: 'craft/arma_pendulo.webp' },
-            { id: 'w18', name: 'Gravidade de Fogo', element: 'fire', firepower: 3, desc: 'Sistema de spray de fogo', img: 'craft/arma_fogo.webp' },
-            { id: 'w19', name: 'Besta de Lápis', element: 'physical', firepower: 3, desc: 'Besta que dispara lápis', img: 'craft/craft_01.webp' },
-            { id: 'w20', name: 'Lançador de Tênis', element: 'physical', firepower: 3, desc: 'Roda de bicicleta lançadora', img: 'craft/arma_canhao.webp' },
-            { id: 'w21', name: 'Armadilha de Choque', element: 'electric', firepower: 4, desc: 'Bateria com fios elétricos', img: 'craft/arma_choque.webp' },
-            { id: 'w22', name: 'Congelador CO2', element: 'ice', firepower: 4, desc: 'Extintor modificado', img: 'craft/arma_spray.webp' },
-            { id: 'w23', name: 'Mina Sonora', element: 'sound', firepower: 3, desc: 'Buzina ensurdecedora', img: 'craft/craft_02.webp' }
+            { id: 'w1', name: 'Sentinela Nerf', element: 'physical', firepower: 3,
+              essential: 'Pistola Nerf', base: 'Base de Ventilador', basicFree: 'Fita adesiva', basicPaid: 'Fios', trigger: 'Sensor de Movimento', ammo: 'Dardos Nerf' },
+            { id: 'w2', name: 'Metralhadora Vulcan', element: 'physical', firepower: 5,
+              essential: 'Nerf Vulcan', base: 'Base de Ventilador', basicFree: 'Fita adesiva', basicPaid: 'Fios', trigger: 'Sensor de Movimento', ammo: 'Dardos Nerf' },
+            { id: 'w3', name: 'Sentinela de Fogo', element: 'fire', firepower: 4,
+              essential: 'Super Soaker', base: 'Tripé de Câmera', basicFree: 'Fita adesiva', basicPaid: 'Fios', trigger: 'Sensor de Movimento', ammo: 'Querosene' },
+            { id: 'w4', name: 'Canhão de Tênis', element: 'physical', firepower: 3,
+              essential: 'Soprador de Folhas', base: 'Carrinho de Mão', basicFree: 'Fita adesiva', basicPaid: 'Tubo de PVC', trigger: 'Fio de Tropeço', ammo: 'Tênis Velho' },
+            { id: 'w5', name: 'Mina de Goma', element: 'earth', firepower: 2,
+              essential: 'Ratoeira', base: 'Caixa de Papelão', basicFree: '-', basicPaid: '-', trigger: 'Fio de Tropeço', ammo: 'Goma' },
+            { id: 'w6', name: 'Lançador de Geleca', element: 'earth', firepower: 2,
+              essential: 'Pá de Jardim', base: 'Estacas de Madeira', basicFree: 'Elásticos', basicPaid: 'Barbante', trigger: 'Fio de Tropeço', ammo: 'Balões' },
+            { id: 'w7', name: 'Armadilha de Gude', element: 'earth', firepower: 1,
+              essential: 'Pote de Vidro', base: 'Estacas de Madeira', basicFree: '-', basicPaid: 'Barbante', trigger: 'Fio de Tropeço', ammo: 'Bolas de Gude' },
+            { id: 'w8', name: 'Morteiro de Água', element: 'water', firepower: 3,
+              essential: '-', base: 'Estacas de Madeira', basicFree: 'Elásticos', basicPaid: 'Tubo de PVC', trigger: 'Interruptor', ammo: 'Balões' },
+            { id: 'w9', name: 'Armadilha Espanador', element: 'physical', firepower: 1,
+              essential: 'Espanador de Pó', base: 'Estacas de Madeira', basicFree: 'Madeirite', basicPaid: 'Barbante', trigger: 'Fio de Tropeço', ammo: '-' },
+            { id: 'w10', name: 'Teia de Aranha', element: 'earth', firepower: 2,
+              essential: '-', base: 'Estacas de Madeira', basicFree: '-', basicPaid: 'Barbante', trigger: 'Fio de Tropeço', ammo: 'Pregos' },
+            { id: 'w11', name: 'Cobra de Mangueira', element: 'water', firepower: 2,
+              essential: 'Mangueira Furada', base: '-', basicFree: 'Madeirite', basicPaid: 'Fios', trigger: 'Interruptor', ammo: 'Água' },
+            { id: 'w12', name: 'Spray de Pimenta', element: 'fire', firepower: 3,
+              essential: 'Pulverizador', base: '-', basicFree: '-', basicPaid: 'Barbante', trigger: 'Fio de Tropeço', ammo: 'Molho de Pimenta' },
+            { id: 'w13', name: 'Espantalho', element: 'physical', firepower: 1,
+              essential: 'Roupas Velhas', base: '-', basicFree: 'Madeirite', basicPaid: 'Barbante', trigger: '-', ammo: 'Balões' },
+            { id: 'w14', name: 'Bambolê de Fogo', element: 'fire', firepower: 4,
+              essential: 'Bambolê', base: '-', basicFree: 'Madeirite', basicPaid: 'Barbante', trigger: 'Fio de Tropeço', ammo: 'Querosene' },
+            { id: 'w15', name: 'Tapete de Brasas', element: 'fire', firepower: 3,
+              essential: 'Tapete Velho', base: 'Chapa de Metal', basicFree: '-', basicPaid: 'Fios', trigger: 'Fio de Tropeço', ammo: 'Querosene' },
+            { id: 'w16', name: 'Aspersor de Lama', element: 'earth', firepower: 2,
+              essential: 'Aspersor Oscilante', base: 'Balde', basicFree: '-', basicPaid: 'Tubo de PVC', trigger: 'Interruptor', ammo: 'Água' },
+            { id: 'w17', name: 'Pêndulo de Pneu', element: 'physical', firepower: 4,
+              essential: 'Pneu de Carro', base: '-', basicFree: 'Madeirite', basicPaid: 'Barbante', trigger: 'Fio de Tropeço', ammo: 'Pregos' },
+            { id: 'w18', name: 'Gravidade de Fogo', element: 'fire', firepower: 3,
+              essential: '-', base: 'Tijolo', basicFree: '-', basicPaid: 'Barbante', trigger: 'Fio de Tropeço', ammo: 'Lata de Spray' },
+            { id: 'w19', name: 'Besta de Lápis', element: 'physical', firepower: 3,
+              essential: 'Motor Elétrico', base: 'Caixote de Madeira', basicFree: '-', basicPaid: 'Fios', trigger: 'Interruptor', ammo: 'Lápis de Cor' },
+            { id: 'w20', name: 'Lançador de Tênis', element: 'physical', firepower: 3,
+              essential: 'Roda de Bicicleta', base: '-', basicFree: 'Madeirite', basicPaid: 'Tubo de PVC', trigger: 'Sensor de Movimento', ammo: 'Bolas de Tênis' },
+            { id: 'w21', name: 'Armadilha Choque', element: 'electric', firepower: 4,
+              essential: 'Bateria de Carro', base: '-', basicFree: '-', basicPaid: 'Fios', trigger: '-', ammo: '-' }
         ];
 
-        const MONSTERS = [
-            { id: 'm1', name: 'Saci', emoji: '🌀', hp: 3, weakness: 'earth', resistance: 'physical', desc: 'Menino de uma perna só' },
-            { id: 'm2', name: 'Mula Sem Cabeça', emoji: '🐴', hp: 5, weakness: 'water', resistance: 'fire', desc: 'Mula que solta fogo' },
-            { id: 'm3', name: 'Capelobo', emoji: '🐕', hp: 4, weakness: 'electric', resistance: 'physical', desc: 'Híbrido homem-animal' },
-            { id: 'm4', name: 'Curupira', emoji: '🌲', hp: 3, weakness: 'physical', resistance: 'electric', desc: 'Protetor das florestas' },
-            { id: 'm5', name: 'Boitatá', emoji: '🔥', hp: 4, weakness: 'ice', resistance: 'fire', desc: 'Serpente de fogo' },
-            { id: 'm6', name: 'Cuca', emoji: '🧙‍♀️', hp: 10, weakness: 'fire', resistance: 'physical', desc: 'Bruxa temida', isBoss: true }
-        ];
-
+        // CARD DECKS
         const CARDS = {
             essential: [
                 { id: 'e1', name: 'Pistola Nerf', emoji: '🔫', img: 'craft/arma_nerf_sentinela.webp' },
                 { id: 'e2', name: 'Nerf Vulcan', emoji: '🔫', img: 'craft/arma_vulcan.webp' },
                 { id: 'e3', name: 'Super Soaker', emoji: '💧', img: 'craft/arma_spray.webp' },
-                { id: 'e4', name: 'Soprador', emoji: '🌬️', img: 'craft/craft_03.webp' },
+                { id: 'e4', name: 'Soprador de Folhas', emoji: '🌬️', img: 'craft/craft_01.webp' },
                 { id: 'e5', name: 'Ratoeira', emoji: '🪤', img: 'craft/arma_mina.webp' },
-                { id: 'e6', name: 'Pá', emoji: '🔨', img: 'craft/craft_04.webp' },
-                { id: 'e7', name: 'Pote Vidro', emoji: '🏺', img: 'craft/craft_05.webp' },
-                { id: 'e8', name: 'PVC', emoji: '🔧', img: 'craft/craft_06.webp' },
-                { id: 'e9', name: 'Espanador', emoji: '🪶', img: 'craft/arma_teia.webp' },
-                { id: 'e10', name: 'Barbante', emoji: '🧵', img: 'craft/arma_teia.webp' },
-                { id: 'e11', name: 'Mangueira', emoji: '🐍', img: 'craft/arma_spray.webp' },
-                { id: 'e12', name: 'Pulverizador', emoji: '💦', img: 'craft/arma_spray.webp' },
-                { id: 'e13', name: 'Roupas', emoji: '👕', img: 'craft/craft_07.webp' },
-                { id: 'e14', name: 'Bambolê', emoji: '⭕', img: 'craft/craft_08.webp' },
-                { id: 'e15', name: 'Tapete', emoji: '🟫', img: 'craft/craft_09.webp' },
-                { id: 'e16', name: 'Aspersor', emoji: '🌧️', img: 'craft/arma_spray.webp' },
-                { id: 'e17', name: 'Pneu', emoji: '⭕', img: 'craft/arma_pendulo.webp' },
-                { id: 'e18', name: 'Spray', emoji: '🧴', img: 'craft/arma_spray.webp' },
-                { id: 'e19', name: 'Motor', emoji: '⚙️', img: 'craft/craft_10.webp' },
-                { id: 'e20', name: 'Roda Bike', emoji: '🚲', img: 'craft/arma_canhao.webp' },
-                { id: 'e21', name: 'Bateria', emoji: '🔋', img: 'craft/arma_choque.webp' },
-                { id: 'e22', name: 'Extintor', emoji: '🧯', img: 'craft/arma_spray.webp' },
-                { id: 'e23', name: 'Buzina', emoji: '📢', img: 'craft/craft_02.webp' }
+                { id: 'e6', name: 'Pá de Jardim', emoji: '🔨', img: 'craft/craft_02.webp' },
+                { id: 'e7', name: 'Pote de Vidro', emoji: '🏺', img: 'craft/craft_03.webp' },
+                { id: 'e8', name: 'Espanador de Pó', emoji: '🪶', img: 'craft/arma_teia.webp' },
+                { id: 'e9', name: 'Mangueira Furada', emoji: '🐍', img: 'craft/arma_spray.webp' },
+                { id: 'e10', name: 'Pulverizador', emoji: '💦', img: 'craft/arma_spray.webp' },
+                { id: 'e11', name: 'Roupas Velhas', emoji: '👕', img: 'craft/craft_04.webp' },
+                { id: 'e12', name: 'Bambolê', emoji: '⭕', img: 'craft/craft_05.webp' },
+                { id: 'e13', name: 'Tapete Velho', emoji: '🟫', img: 'craft/craft_06.webp' },
+                { id: 'e14', name: 'Aspersor Oscilante', emoji: '🌧️', img: 'craft/arma_spray.webp' },
+                { id: 'e15', name: 'Pneu de Carro', emoji: '⭕', img: 'craft/arma_pendulo.webp' },
+                { id: 'e16', name: 'Motor Elétrico', emoji: '⚙️', img: 'craft/arma_choque.webp' },
+                { id: 'e17', name: 'Roda de Bicicleta', emoji: '🚲', img: 'craft/arma_canhao.webp' },
+                { id: 'e18', name: 'Bateria de Carro', emoji: '🔋', img: 'craft/arma_choque.webp' }
             ],
             base: [
-                { id: 'b1', name: 'Tripé', emoji: '📐', img: 'craft/craft_11.webp' },
-                { id: 'b2', name: 'Suporte', emoji: '🪑', img: 'craft/craft_12.webp' },
-                { id: 'b3', name: 'Tubo', emoji: '🔧', img: 'craft/craft_13.webp' },
-                { id: 'b4', name: 'Madeira', emoji: '🪵', img: 'craft/craft_14.webp' },
-                { id: 'b5', name: 'Garrafa', emoji: '🍾', img: 'craft/craft_15.webp' }
+                { id: 'b1', name: 'Base de Ventilador', emoji: '🌀', img: 'craft/craft_07.webp' },
+                { id: 'b2', name: 'Tripé de Câmera', emoji: '📷', img: 'craft/craft_08.webp' },
+                { id: 'b3', name: 'Carrinho de Mão', emoji: '🛒', img: 'craft/craft_09.webp' },
+                { id: 'b4', name: 'Caixa de Papelão', emoji: '📦', img: 'craft/craft_10.webp' },
+                { id: 'b5', name: 'Estacas de Madeira', emoji: '🪵', img: 'craft/arma_teia.webp' },
+                { id: 'b6', name: 'Chapa de Metal', emoji: '🔩', img: 'craft/craft_11.webp' },
+                { id: 'b7', name: 'Balde', emoji: '🪣', img: 'craft/craft_12.webp' },
+                { id: 'b8', name: 'Tijolo', emoji: '🧱', img: 'craft/craft_13.webp' },
+                { id: 'b9', name: 'Caixote de Madeira', emoji: '📦', img: 'craft/craft_14.webp' }
             ],
-            basic: [
-                { id: 'k1', name: 'Água', emoji: '💧', img: 'craft/craft_16.webp' },
-                { id: 'k2', name: 'Fogo', emoji: '🔥', img: 'craft/arma_fogo.webp' },
-                { id: 'k3', name: 'Eletricidade', emoji: '⚡', img: 'craft/arma_choque.webp' },
-                { id: 'k4', name: 'Lama', emoji: '🟤', img: 'craft/craft_17.webp' },
-                { id: 'k5', name: 'Gelo', emoji: '❄️', img: 'craft/craft_18.webp' }
+            basicFree: [
+                { id: 'bf1', name: 'Fita Adesiva', emoji: '🩹', img: 'craft/craft_15.webp' },
+                { id: 'bf2', name: 'Elásticos', emoji: '🔗', img: 'craft/craft_16.webp' },
+                { id: 'bf3', name: 'Madeirite', emoji: '🪵', img: 'craft/craft_17.webp' }
+            ],
+            basicPaid: [
+                { id: 'bp1', name: 'Fios', emoji: '🔌', img: 'craft/arma_choque.webp' },
+                { id: 'bp2', name: 'Tubo de PVC', emoji: '🔧', img: 'craft/arma_canhao.webp' },
+                { id: 'bp3', name: 'Barbante', emoji: '🧵', img: 'craft/arma_teia.webp' }
             ],
             trigger: [
-                { id: 't1', name: 'Sensor', emoji: '📡', img: 'craft/craft_19.webp' },
-                { id: 't2', name: 'Timer', emoji: '⏱️', img: 'craft/craft_20.webp' },
-                { id: 't3', name: 'Fio', emoji: '🧵', img: 'craft/arma_teia.webp' }
+                { id: 't1', name: 'Sensor de Movimento', emoji: '📡', img: 'craft/craft_18.webp' },
+                { id: 't2', name: 'Fio de Tropeço', emoji: '🧵', img: 'craft/arma_teia.webp' },
+                { id: 't3', name: 'Interruptor', emoji: '🔘', img: 'craft/arma_choque.webp' }
+            ],
+            ammo: [
+                { id: 'a1', name: 'Dardos Nerf', emoji: '🎯', img: 'craft/arma_nerf_sentinela.webp' },
+                { id: 'a2', name: 'Querosene', emoji: '🔥', img: 'craft/arma_fogo.webp' },
+                { id: 'a3', name: 'Tênis Velho', emoji: '👟', img: 'craft/arma_canhao.webp' },
+                { id: 'a4', name: 'Goma', emoji: '🍬', img: 'craft/arma_mina.webp' },
+                { id: 'a5', name: 'Balões', emoji: '🎈', img: 'craft/craft_19.webp' },
+                { id: 'a6', name: 'Bolas de Gude', emoji: '⚪', img: 'craft/craft_20.webp' },
+                { id: 'a7', name: 'Pregos', emoji: '📌', img: 'craft/arma_teia.webp' },
+                { id: 'a8', name: 'Água', emoji: '💧', img: 'craft/arma_spray.webp' },
+                { id: 'a9', name: 'Molho de Pimenta', emoji: '🌶️', img: 'craft/arma_spray.webp' },
+                { id: 'a10', name: 'Lápis de Cor', emoji: '✏️', img: 'craft/craft_01.webp' },
+                { id: 'a11', name: 'Bolas de Tênis', emoji: '🎾', img: 'craft/arma_canhao.webp' },
+                { id: 'a12', name: 'Lata de Spray', emoji: '🧴', img: 'craft/arma_spray.webp' }
             ]
         };
 
-        const PATHS = [
-            { id: 'left', name: 'Esquerdo', emoji: '⬅️', room: 'Quarto', roomEmoji: '🛏️' },
-            { id: 'center', name: 'Central', emoji: '⬆️', room: 'Cozinha', roomEmoji: '🍳' },
-            { id: 'right', name: 'Direito', emoji: '➡️', room: 'Sala', roomEmoji: '🛋️' }
-        ];
-
-        // ===== STATE =====
+        // STATE
         let currentSection = 'crafting';
-        let craftingSlots = { essential: null, base: null, basic: null, trigger: null };
+        let craftingSlots = { essential: null, base: null, basicFree: null, basicPaid: null, trigger: null, ammo: null };
         let currentPickerType = null;
-        let selectedCombatWeapon = null;
-        let selectedCombatMonster = null;
-        let monsterCurrentHp = 0;
-
-        // Mini Game State
-        let gameState = {
-            phase: 'setup',
-            turn: 0,
-            placedWeapons: [],
-            monsters: [],
-            defeated: 0,
-            escaped: 0,
-            selectedArsenalWeapon: null
-        };
 
         // ===== NAVIGATION =====
         function showSection(section) {
@@ -1347,27 +504,34 @@
             document.getElementById(section).classList.add('active');
             event.target.classList.add('active');
             currentSection = section;
-
-            if (section === 'minigame') initMiniGame();
+            if (section === 'recipes') renderRecipeTable();
         }
 
-        // ===== POPUP FUNCTIONS =====
+        // ===== POPUP =====
         function openCardPicker(type) {
             currentPickerType = type;
             const cards = CARDS[type];
-            
-            const typeNames = { essential: 'Essencial', base: 'Base', basic: 'Básico', trigger: 'Gatilho' };
-            document.getElementById('picker-title').textContent = `Escolha uma Carta ${typeNames[type]}`;
-            
+            const typeNames = {
+                essential: 'Item Essencial',
+                base: 'Base (Suporte)',
+                basicFree: 'Básico Gratuito',
+                basicPaid: 'Básico (1 Moeda)',
+                trigger: 'Acionador (Gatilho)',
+                ammo: 'Munição (Carga)'
+            };
+            document.getElementById('picker-title').textContent = `Escolha: ${typeNames[type]}`;
+
             const cardsHtml = cards.map(card => `
-                <div class="craft-card ${craftingSlots[type]?.id === card.id ? 'selected' : ''}" 
+                <div class="craft-card ${craftingSlots[type]?.id === card.id ? 'selected' : ''}"
                      onclick="selectCard('${type}', '${card.id}', '${card.name}', '${card.emoji}', '${card.img}')">
-                    <img class="card-image" src="${card.img}" alt="${card.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <div class="card-emoji" style="display:none;">${card.emoji}</div>
+                    <img class="card-image" src="${card.img}" alt="${card.name}" onerror="this.style.display='none'">
+                    <div class="card-emoji">${card.emoji}</div>
                     <div class="card-name">${card.name}</div>
+                    ${type === 'basicFree' ? '<span class="info-badge badge-free">GRÁTIS</span>' : ''}
+                    ${type === 'basicPaid' ? '<span class="info-badge badge-paid">1💰</span>' : ''}
                 </div>
             `).join('');
-            
+
             document.getElementById('picker-cards').innerHTML = cardsHtml;
             document.getElementById('card-picker-popup').classList.add('active');
         }
@@ -1378,408 +542,127 @@
 
         function selectCard(type, id, name, emoji, img) {
             craftingSlots[type] = { id, name, emoji, img };
-            
             const slot = document.getElementById(`slot-${type}`);
             slot.innerHTML = `
                 <img class="slot-image" src="${img}" alt="${name}" onerror="this.outerHTML='<div class=\\'slot-emoji\\'>${emoji}</div>'">
                 <div class="slot-label">${name}</div>
-                <div class="slot-type">${type}</div>
+                <div class="slot-type">${type === 'basicFree' ? '🆓 Gratuito' : type === 'basicPaid' ? '1💰 Moeda' : ''}</div>
             `;
             slot.classList.add('filled');
-            
             closePopup();
             checkCraftingComplete();
         }
 
         function checkCraftingComplete() {
-            const complete = Object.values(craftingSlots).every(s => s !== null);
-            document.getElementById('craft-btn').disabled = !complete;
+            // Check if at least essential is filled (some recipes have empty slots)
+            const hasEssential = craftingSlots.essential !== null;
+            document.getElementById('craft-btn').disabled = !hasEssential;
         }
 
         function craft() {
-            const weapon = WEAPONS[Math.floor(Math.random() * WEAPONS.length)];
-            const elem = ELEMENTS[weapon.element];
+            // Find matching weapon
+            let matchedWeapon = null;
             
+            for (const weapon of WEAPONS) {
+                const matches = 
+                    checkSlot(weapon.essential, craftingSlots.essential) &&
+                    checkSlot(weapon.base, craftingSlots.base) &&
+                    checkSlot(weapon.basicFree, craftingSlots.basicFree) &&
+                    checkSlot(weapon.basicPaid, craftingSlots.basicPaid) &&
+                    checkSlot(weapon.trigger, craftingSlots.trigger) &&
+                    checkSlot(weapon.ammo, craftingSlots.ammo);
+                
+                if (matches) {
+                    matchedWeapon = weapon;
+                    break;
+                }
+            }
+
             const resultSlot = document.getElementById('result-slot');
-            resultSlot.innerHTML = `
-                <div class="weapon-result">
-                    <img class="weapon-image" src="${weapon.img}" alt="${weapon.name}" onerror="this.style.display='none'">
-                    <div class="weapon-name">${elem.emoji} ${weapon.name}</div>
-                    <div class="weapon-desc">${weapon.desc}</div>
-                    <div class="weapon-stats">
-                        <div class="stat">⚔️ ${weapon.firepower}d</div>
-                        <div class="stat">${elem.emoji} ${elem.name}</div>
+            
+            if (matchedWeapon) {
+                const elem = ELEMENTS[matchedWeapon.element];
+                resultSlot.innerHTML = `
+                    <div class="weapon-result">
+                        <div class="weapon-name">${elem.emoji} ${matchedWeapon.name}</div>
+                        <div class="weapon-desc">Arma criada com sucesso!</div>
+                        <div class="weapon-stats">
+                            <div class="stat">⚔️ ${matchedWeapon.firepower}d</div>
+                            <div class="stat">${elem.emoji} ${elem.name}</div>
+                        </div>
                     </div>
-                </div>
-            `;
-            resultSlot.classList.add('filled');
+                `;
+                resultSlot.classList.add('filled');
+            } else {
+                resultSlot.innerHTML = `
+                    <div class="slot-emoji">❌</div>
+                    <div class="slot-label" style="color: #ef4444;">Combinação Inválida</div>
+                `;
+                resultSlot.classList.remove('filled');
+            }
+        }
+
+        function checkSlot(required, selected) {
+            if (required === '-') return selected === null || selected.name === '-';
+            if (!selected) return false;
+            return selected.name === required;
         }
 
         function resetCrafting() {
-            craftingSlots = { essential: null, base: null, basic: null, trigger: null };
-            ['essential', 'base', 'basic', 'trigger'].forEach(type => {
+            craftingSlots = { essential: null, base: null, basicFree: null, basicPaid: null, trigger: null, ammo: null };
+            const slotTypes = ['essential', 'base', 'basicFree', 'basicPaid', 'trigger', 'ammo'];
+            const slotLabels = ['Item Essencial', 'Base', 'Básico Grátis', 'Básico 1💰', 'Acionador', 'Munição'];
+            const slotTypeLabels = ['Coração', 'Suporte', '🆓 Gratuito', '1 Moeda', 'Gatilho', 'Carga'];
+            
+            slotTypes.forEach((type, i) => {
                 const slot = document.getElementById(`slot-${type}`);
                 slot.innerHTML = `
                     <div class="slot-emoji">❓</div>
-                    <div class="slot-label">Selecione</div>
-                    <div class="slot-type">${type.charAt(0).toUpperCase() + type.slice(1)}</div>
+                    <div class="slot-label">${slotLabels[i]}</div>
+                    <div class="slot-type">${slotTypeLabels[i]}</div>
                 `;
                 slot.classList.remove('filled');
             });
-            
+
             const resultSlot = document.getElementById('result-slot');
             resultSlot.innerHTML = `
                 <div class="slot-emoji">🎁</div>
                 <div class="slot-label">Resultado</div>
             `;
             resultSlot.classList.remove('filled');
-            
             document.getElementById('craft-btn').disabled = true;
         }
 
-        // ===== RECIPE BOOK =====
-        function initRecipeBook() {
-            const html = WEAPONS.map(w => {
+        // ===== RECIPE TABLE =====
+        function renderRecipeTable() {
+            const headers = ['Arma', '❤️ Essencial', '📦 Base', '🆓 Básico Grátis', '💰 Básico 1$', '⚡ Gatilho', '🎯 Munição'];
+            let html = '<thead><tr>' + headers.map(h => `<th>${h}</th>`).join('') + '</tr></thead><tbody>';
+            
+            WEAPONS.forEach(w => {
                 const elem = ELEMENTS[w.element];
-                return `
-                    <div class="craft-card" onclick="showWeaponDetail('${w.id}')">
-                        <img class="card-image" src="${w.img}" alt="${w.name}" onerror="this.style.display='none'">
-                        <div class="card-emoji">${elem.emoji}</div>
-                        <div class="card-name">${w.name}</div>
-                        <div class="card-stats">⚔️ ${w.firepower}d</div>
-                    </div>
-                `;
-            }).join('');
-            document.getElementById('recipe-book').innerHTML = html;
-        }
-
-        function showWeaponDetail(id) {
-            const w = WEAPONS.find(w => w.id === id);
-            const elem = ELEMENTS[w.element];
-            
-            document.getElementById('weapon-detail-title').textContent = w.name;
-            document.getElementById('weapon-detail-content').innerHTML = `
-                <div class="weapon-result">
-                    <img class="weapon-image" src="${w.img}" alt="${w.name}" style="width: 100%; max-height: 150px;">
-                    <div class="weapon-name">${elem.emoji} ${w.name}</div>
-                    <div class="weapon-desc">${w.desc}</div>
-                    <div class="weapon-stats">
-                        <div class="stat">⚔️ ${w.firepower}d</div>
-                        <div class="stat">${elem.emoji} ${elem.name}</div>
-                    </div>
-                </div>
-            `;
-            document.getElementById('weapon-detail-popup').classList.add('active');
-        }
-
-        function closeWeaponDetail() {
-            document.getElementById('weapon-detail-popup').classList.remove('active');
-        }
-
-        // ===== COMBAT =====
-        function initCombat() {
-            const weaponHtml = WEAPONS.slice(0, 9).map(w => {
-                const elem = ELEMENTS[w.element];
-                return `
-                    <div class="craft-card" onclick="selectCombatWeapon('${w.id}')">
-                        <img class="card-image" src="${w.img}" alt="${w.name}" onerror="this.style.display='none'">
-                        <div class="card-emoji">${elem.emoji}</div>
-                        <div class="card-name">${w.name}</div>
-                        <div class="card-stats">⚔️ ${w.firepower}d</div>
-                    </div>
-                `;
-            }).join('');
-            document.getElementById('weapon-picker').innerHTML = weaponHtml;
-
-            const monsterHtml = MONSTERS.map(m => `
-                <div class="craft-card" onclick="selectCombatMonster('${m.id}')">
-                    <div class="card-emoji" style="font-size: 2em;">${m.emoji}</div>
-                    <div class="card-name">${m.name}</div>
-                    <div class="card-stats">HP: ${m.hp}</div>
-                </div>
-            `).join('');
-            document.getElementById('monster-picker').innerHTML = monsterHtml;
-        }
-
-        function selectCombatWeapon(id) {
-            selectedCombatWeapon = WEAPONS.find(w => w.id === id);
-            const elem = ELEMENTS[selectedCombatWeapon.element];
-            
-            document.querySelectorAll('#weapon-picker .craft-card').forEach(c => c.classList.remove('selected'));
-            event.target.closest('.craft-card').classList.add('selected');
-            
-            checkCombatReady();
-        }
-
-        function selectCombatMonster(id) {
-            selectedCombatMonster = MONSTERS.find(m => m.id === id);
-            monsterCurrentHp = selectedCombatMonster.hp;
-            
-            document.querySelectorAll('#monster-picker .craft-card').forEach(c => c.classList.remove('selected'));
-            event.target.closest('.craft-card').classList.add('selected');
-            
-            checkCombatReady();
-        }
-
-        function checkCombatReady() {
-            document.getElementById('attack-btn').disabled = !(selectedCombatWeapon && selectedCombatMonster);
-        }
-
-        function attack() {
-            const resultDiv = document.getElementById('combat-result');
-            const diceDiv = document.getElementById('dice-result');
-            
-            const isWeakness = selectedCombatWeapon.element === selectedCombatMonster.weakness;
-            const isResistance = selectedCombatWeapon.element === selectedCombatMonster.resistance;
-            
-            let diceCount = selectedCombatWeapon.firepower;
-            if (isWeakness) diceCount++;
-            
-            const rolls = [];
-            let hits = 0;
-            
-            diceDiv.innerHTML = Array(diceCount).fill(0).map(() => {
-                const roll = Math.floor(Math.random() * 6) + 1;
-                rolls.push(roll);
-                return `<div class="dice rolling">?</div>`;
-            }).join('');
-            
-            resultDiv.classList.remove('hidden');
-            
-            setTimeout(() => {
-                rolls.forEach(roll => { if (roll >= 4) hits++; });
-                if (isResistance && hits > 0) hits = Math.max(0, hits - 1);
-                monsterCurrentHp = Math.max(0, monsterCurrentHp - hits);
-                
-                diceDiv.innerHTML = rolls.map(roll => 
-                    `<div class="dice ${roll >= 4 ? 'hit' : 'miss'}">${roll}</div>`
-                ).join('');
-                
-                document.getElementById('hits-count').textContent = hits;
-                document.getElementById('damage-count').textContent = hits;
-                document.getElementById('monster-hp').textContent = monsterCurrentHp;
-                
-                let elemInfo = '';
-                if (isWeakness) elemInfo += '<div class="alert alert-success">🎯 Fraqueza! +1 dado!</div>';
-                if (isResistance) elemInfo += '<div class="alert alert-danger">🛡️ Resistência! -1 sucesso</div>';
-                if (monsterCurrentHp === 0) {
-                    elemInfo += '<div class="alert alert-success">🎉 Monstro Derrotado!</div>';
-                    setTimeout(() => { monsterCurrentHp = selectedCombatMonster.hp; }, 2000);
-                }
-                document.getElementById('elemental-info').innerHTML = elemInfo;
-            }, 500);
-        }
-
-        // ===== MINI GAME =====
-        function initMiniGame() {
-            if (gameState.phase !== 'setup') return;
-            
-            gameState = {
-                phase: 'setup',
-                turn: 0,
-                placedWeapons: [],
-                monsters: [],
-                defeated: 0,
-                escaped: 0,
-                selectedArsenalWeapon: null
-            };
-            
-            renderGameBoard();
-            renderArsenal();
-            updateGameStats();
-            
-            document.getElementById('arsenal-card').classList.remove('hidden');
-            document.getElementById('game-controls').classList.add('hidden');
-            document.getElementById('combat-log-card').classList.add('hidden');
-        }
-
-        function renderGameBoard() {
-            const pathsHtml = PATHS.map(path => `
-                <div class="board-row">
-                    <div class="path-label"><span>${path.emoji}</span> ${path.name}</div>
-                    <div class="zone zone-street" id="street-${path.id}">${renderMonstersInZone(path.id, 'street')}</div>
-                    <div class="zone zone-yard" id="yard-${path.id}" onclick="placeWeapon('${path.id}', 'yard')">
-                        ${renderPlacedWeapon(path.id, 'yard')}${renderMonstersInZone(path.id, 'yard')}
-                    </div>
-                    <div class="zone zone-house" id="house-${path.id}" onclick="placeWeapon('${path.id}', 'house')">
-                        ${renderPlacedWeapon(path.id, 'house')}${renderMonstersInZone(path.id, 'house')}
-                    </div>
-                    <div class="zone zone-room"><span>${path.roomEmoji}</span> ${path.room}</div>
-                </div>
-            `).join('');
-            document.getElementById('game-paths').innerHTML = pathsHtml;
-        }
-
-        function renderPlacedWeapon(pathId, zone) {
-            const placed = gameState.placedWeapons.find(w => w.path === pathId && w.zone === zone);
-            if (!placed) return '';
-            const weapon = WEAPONS.find(w => w.id === placed.weaponId);
-            const elem = ELEMENTS[weapon.element];
-            return `<div class="placed-weapon" onclick="event.stopPropagation(); removeWeapon('${placed.id}')">${elem.emoji} ${weapon.firepower}d ×</div>`;
-        }
-
-        function renderMonstersInZone(pathId, zone) {
-            return gameState.monsters.filter(m => m.path === pathId && m.zone === zone).map(m => {
-                const monster = MONSTERS.find(mon => mon.id === m.monsterId);
-                return `<span class="monster-token" title="${monster.name}">${monster.emoji}</span>`;
-            }).join('');
-        }
-
-        function renderArsenal() {
-            const arsenalHtml = WEAPONS.slice(0, 12).map(w => {
-                const elem = ELEMENTS[w.element];
-                const count = gameState.placedWeapons.filter(p => p.weaponId === w.id).length;
-                const canPlace = count < 2;
-                return `
-                    <div class="arsenal-item ${!canPlace ? 'disabled' : ''} ${gameState.selectedArsenalWeapon === w.id ? 'selected' : ''}" 
-                         onclick="${canPlace ? `selectArsenalWeapon('${w.id}')` : ''}">
-                        <img class="arsenal-image" src="${w.img}" alt="${w.name}" onerror="this.style.display='none'">
-                        <div style="font-weight: bold; font-size: 0.8em;">${w.name}</div>
-                        <div style="font-size: 0.7em;">${elem.emoji} ${w.firepower}d (${count}/2)</div>
-                    </div>
-                `;
-            }).join('');
-            document.getElementById('arsenal').innerHTML = arsenalHtml;
-        }
-
-        function selectArsenalWeapon(weaponId) {
-            if (gameState.phase !== 'setup') return;
-            gameState.selectedArsenalWeapon = weaponId;
-            renderArsenal();
-        }
-
-        function placeWeapon(pathId, zone) {
-            if (gameState.phase !== 'setup' || !gameState.selectedArsenalWeapon) return;
-            const exists = gameState.placedWeapons.find(w => w.path === pathId && w.zone === zone);
-            if (exists) return;
-            
-            gameState.placedWeapons.push({
-                id: `pw-${Date.now()}`,
-                weaponId: gameState.selectedArsenalWeapon,
-                path: pathId,
-                zone: zone
+                html += `<tr>
+                    <td><strong>${elem.emoji} ${w.name}</strong><br><small>⚔️${w.firepower}d</small></td>
+                    <td>${w.essential || '<span class="empty">−</span>'}</td>
+                    <td>${w.base || '<span class="empty">−</span>'}</td>
+                    <td>${w.basicFree || '<span class="empty">−</span>'}</td>
+                    <td>${w.basicPaid || '<span class="empty">−</span>'}</td>
+                    <td>${w.trigger || '<span class="empty">−</span>'}</td>
+                    <td>${w.ammo || '<span class="empty">−</span>'}</td>
+                </tr>`;
             });
             
-            gameState.selectedArsenalWeapon = null;
-            renderGameBoard();
-            renderArsenal();
-            updateGameStats();
-            document.getElementById('start-game-btn').disabled = gameState.placedWeapons.length < 3;
+            html += '</tbody>';
+            document.getElementById('recipe-table').innerHTML = html;
         }
 
-        function removeWeapon(id) {
-            if (gameState.phase !== 'setup') return;
-            gameState.placedWeapons = gameState.placedWeapons.filter(w => w.id !== id);
-            renderGameBoard();
-            renderArsenal();
-            document.getElementById('start-game-btn').disabled = gameState.placedWeapons.length < 3;
-        }
-
-        function startGame() {
-            if (gameState.placedWeapons.length < 3) return;
-            gameState.phase = 'playing';
-            gameState.turn = 1;
-            gameState.monsters = [spawnMonster()];
-            
-            document.getElementById('arsenal-card').classList.add('hidden');
-            document.getElementById('game-controls').classList.remove('hidden');
-            document.getElementById('combat-log-card').classList.remove('hidden');
-            document.getElementById('combat-log').innerHTML = '';
-            
-            renderGameBoard();
-            updateGameStats();
-        }
-
-        function spawnMonster() {
-            const regularMonsters = MONSTERS.filter(m => !m.isBoss);
-            const monster = regularMonsters[Math.floor(Math.random() * regularMonsters.length)];
-            const path = PATHS[Math.floor(Math.random() * PATHS.length)];
-            return { id: `m-${Date.now()}`, monsterId: monster.id, hp: monster.hp, path: path.id, zone: 'street' };
-        }
-
-        function nextTurn() {
-            const log = [];
-            
-            gameState.placedWeapons.forEach(pw => {
-                const weapon = WEAPONS.find(w => w.id === pw.weaponId);
-                gameState.monsters.filter(m => m.path === pw.path && m.zone === pw.zone && m.hp > 0).forEach(m => {
-                    const monster = MONSTERS.find(mon => mon.id === m.monsterId);
-                    let dice = weapon.firepower;
-                    if (weapon.element === monster.weakness) dice++;
-                    let hits = 0;
-                    for (let i = 0; i < dice; i++) if (Math.floor(Math.random() * 6) + 1 >= 4) hits++;
-                    if (weapon.element === monster.resistance) hits = Math.max(0, hits - 1);
-                    m.hp -= hits;
-                    log.push({ weapon: weapon.name, monster: monster.name, damage: hits, path: pw.path });
-                    if (m.hp <= 0) gameState.defeated++;
-                });
-            });
-            
-            gameState.monsters = gameState.monsters.filter(m => m.hp > 0);
-            gameState.monsters.forEach(m => {
-                if (m.zone === 'street') m.zone = 'yard';
-                else if (m.zone === 'yard') m.zone = 'house';
-                else if (m.zone === 'house') { gameState.escaped++; m.zone = 'escaped'; }
-            });
-            gameState.monsters = gameState.monsters.filter(m => m.zone !== 'escaped');
-            
-            const spawnChance = 0.4 + (gameState.turn * 0.05);
-            if (Math.random() < spawnChance && gameState.monsters.length < 6) gameState.monsters.push(spawnMonster());
-            
-            const logHtml = log.map(l => {
-                const pathName = PATHS.find(p => p.id === l.path).name;
-                return `<div style="padding: 3px; margin: 3px 0; background: ${l.damage > 0 ? '#dcfce7' : '#fee2e2'}; border-radius: 5px; font-size: 0.8em;">
-                    <b>${l.weapon}</b> → ${l.monster}: <span style="color: ${l.damage > 0 ? '#22c55e' : '#ef4444'}">${l.damage > 0 ? '-' + l.damage : '🛡️'}</span>
-                </div>`;
-            }).join('');
-            document.getElementById('combat-log').innerHTML = logHtml + document.getElementById('combat-log').innerHTML;
-            
-            if (gameState.escaped >= 3) { showDefeat(); return; }
-            gameState.turn++;
-            if (gameState.turn > 10) { showVictory(); return; }
-            
-            renderGameBoard();
-            updateGameStats();
-        }
-
-        function updateGameStats() {
-            document.getElementById('turn-count').textContent = gameState.turn;
-            document.getElementById('defeated-count').textContent = gameState.defeated;
-            document.getElementById('escaped-count').textContent = gameState.escaped;
-        }
-
-        function showVictory() {
-            document.getElementById('final-defeated').textContent = gameState.defeated;
-            document.getElementById('final-escaped').textContent = gameState.escaped;
-            document.getElementById('victory-modal').classList.add('active');
-        }
-
-        function showDefeat() {
-            document.getElementById('final-defeated-d').textContent = gameState.defeated;
-            document.getElementById('final-escaped-d').textContent = gameState.escaped;
-            document.getElementById('defeat-modal').classList.add('active');
-        }
-
-        function resetGame() {
-            document.getElementById('victory-modal').classList.remove('active');
-            document.getElementById('defeat-modal').classList.remove('active');
-            gameState.phase = 'setup';
-            initMiniGame();
-        }
-
-        // ===== INITIALIZATION =====
+        // ===== INIT =====
         document.addEventListener('DOMContentLoaded', () => {
-            initRecipeBook();
-            initCombat();
-            initMiniGame();
+            renderRecipeTable();
         });
 
-        // Close popup when clicking outside
+        // Close popup on outside click
         document.getElementById('card-picker-popup').addEventListener('click', function(e) {
             if (e.target === this) closePopup();
-        });
-        document.getElementById('weapon-detail-popup').addEventListener('click', function(e) {
-            if (e.target === this) closeWeaponDetail();
         });
     </script>
 </body>

@@ -1,0 +1,569 @@
+{
+  "game": {
+    "name": "Guerra de Quintal: Mestres da Sucata",
+    "description": "Um jogo de tabuleiro cooperativo onde crianças defendem seu quintal de criaturas do folclore brasileiro usando armas feitas de sucata"
+  },
+  "elements": [
+    { "id": "physical", "name": "Físico", "emoji": "⚔️", "color": "#8B4513" },
+    { "id": "fire", "name": "Fogo", "emoji": "🔥", "color": "#FF4500" },
+    { "id": "water", "name": "Água", "emoji": "💧", "color": "#1E90FF" },
+    { "id": "electric", "name": "Elétrico", "emoji": "⚡", "color": "#FFD700" },
+    { "id": "ice", "name": "Gelo", "emoji": "❄️", "color": "#87CEEB" },
+    { "id": "earth", "name": "Terra", "emoji": "🌍", "color": "#8B4513" },
+    { "id": "sound", "name": "Som", "emoji": "📢", "color": "#9370DB" }
+  ],
+  "cards": {
+    "essential": [
+      { "id": "essential-1", "name": "Pistola Nerf", "description": "Pistola Nerf para montar sentinelas", "emoji": "🔫" },
+      { "id": "essential-2", "name": "Nerf Vulcan", "description": "Metralhadora Nerf Vulcan pesada", "emoji": "🔫" },
+      { "id": "essential-3", "name": "Super Soaker", "description": "Pistola de água potente", "emoji": "💧" },
+      { "id": "essential-4", "name": "Soprador", "description": "Soprador de folhas motorizado", "emoji": "🌬️" },
+      { "id": "essential-5", "name": "Ratoeira", "description": "Ratoeira grande de metal", "emoji": "🪤" },
+      { "id": "essential-6", "name": "Pá", "description": "Pá de jardim resistente", "emoji": "🔨" },
+      { "id": "essential-7", "name": "Pote Vidro", "description": "Pote de vidro grande", "emoji": "🏺" },
+      { "id": "essential-8", "name": "PVC", "description": "Tubo de PVC longo", "emoji": "🔧" },
+      { "id": "essential-9", "name": "Espanador", "description": "Espanador de penas", "emoji": "🪶" },
+      { "id": "essential-10", "name": "Barbante", "description": "Rolo de barbante grosso", "emoji": "🧵" },
+      { "id": "essential-11", "name": "Mangueira", "description": "Mangueira de jardim", "emoji": "🐍" },
+      { "id": "essential-12", "name": "Pulverizador", "description": "Pulverizador manual", "emoji": "💦" },
+      { "id": "essential-13", "name": "Roupas", "description": "Roupas velhas", "emoji": "👕" },
+      { "id": "essential-14", "name": "Bambolê", "description": "Bambolê colorido", "emoji": "⭕" },
+      { "id": "essential-15", "name": "Tapete", "description": "Tapete velho", "emoji": "🟫" },
+      { "id": "essential-16", "name": "Aspersor", "description": "Aspersor de jardim", "emoji": "🌧️" },
+      { "id": "essential-17", "name": "Pneu", "description": "Pneu de carro velho", "emoji": "⭕" },
+      { "id": "essential-18", "name": "Spray", "description": "Lata de spray", "emoji": "🧴" },
+      { "id": "essential-19", "name": "Motor", "description": "Motor elétrico pequeno", "emoji": "⚙️" },
+      { "id": "essential-20", "name": "Roda Bike", "description": "Roda de bicicleta", "emoji": "🚲" },
+      { "id": "essential-21", "name": "Bateria Carro", "description": "Bateria de carro 12V", "emoji": "🔋" },
+      { "id": "essential-22", "name": "Extintor", "description": "Extintor de CO2", "emoji": "🧯" },
+      { "id": "essential-23", "name": "Buzina", "description": "Buzina de carro", "emoji": "📢" }
+    ],
+    "base": [
+      { "id": "base-1", "name": "Ventilador", "description": "Ventilador de mesa para base rotativa", "emoji": "🌀" },
+      { "id": "base-2", "name": "Tripé", "description": "Tripé de câmera ajustável", "emoji": "📐" },
+      { "id": "base-3", "name": "Carrinho", "description": "Carrinho de brinquedo", "emoji": "🛒" },
+      { "id": "base-4", "name": "Caixa", "description": "Caixa de papelão grande", "emoji": "📦" },
+      { "id": "base-5", "name": "Estaca", "description": "Estaca de madeira", "emoji": "🪵" },
+      { "id": "base-6", "name": "Bloco", "description": "Bloco de concreto", "emoji": "🧱" },
+      { "id": "base-7", "name": "Galhos", "description": "Galhos de árvore", "emoji": "🌿" },
+      { "id": "base-8", "name": "Árvore", "description": "Árvore do quintal", "emoji": "🌳" },
+      { "id": "base-9", "name": "Estacas", "description": "Conjunto de estacas", "emoji": "🪵" },
+      { "id": "base-10", "name": "Arbusto", "description": "Arbusto do jardim", "emoji": "🌲" },
+      { "id": "base-11", "name": "Rampa", "description": "Rampa de madeira", "emoji": "🚀" },
+      { "id": "base-12", "name": "Chapa", "description": "Chapa de metal", "emoji": "🔩" },
+      { "id": "base-13", "name": "Balde", "description": "Balde plástico", "emoji": "🪣" },
+      { "id": "base-14", "name": "Galho", "description": "Galho grosso", "emoji": "🍃" },
+      { "id": "base-15", "name": "Tijolo", "description": "Tijolo vermelho", "emoji": "🧱" },
+      { "id": "base-16", "name": "Caixote", "description": "Caixote de madeira", "emoji": "📦" },
+      { "id": "base-17", "name": "Madeirite", "description": "Tábua de madeira", "emoji": "🪵" },
+      { "id": "base-18", "name": "Fios", "description": "Fios elétricos", "emoji": "🔌" },
+      { "id": "base-19", "name": "Cadeira", "description": "Cadeira velha", "emoji": "🪑" },
+      { "id": "base-20", "name": "Corda", "description": "Corda de náilon", "emoji": "🪢" }
+    ],
+    "basic": [
+      { "id": "basic-1", "name": "Básico", "description": "Material básico genérico", "emoji": "⚙️" },
+      { "id": "basic-2", "name": "Maçarico", "description": "Maçarico portátil", "emoji": "🔥" },
+      { "id": "basic-3", "name": "Cola", "description": "Cola resistente", "emoji": "🧴" },
+      { "id": "basic-4", "name": "Geleca", "description": "Gelatina pegajosa", "emoji": "🍬" },
+      { "id": "basic-5", "name": "Gude", "description": "Bolas de gude", "emoji": "🔵" },
+      { "id": "basic-6", "name": "Água", "description": "Água do jardim", "emoji": "💧" },
+      { "id": "basic-7", "name": "Pimenta", "description": "Pimenta malagueta", "emoji": "🌶️" },
+      { "id": "basic-8", "name": "Fogo", "description": "Elemento fogo", "emoji": "🔥" },
+      { "id": "basic-9", "name": "Carvão", "description": "Carvão vegetal", "emoji": "⬛" },
+      { "id": "basic-10", "name": "Lama", "description": "Lama do quintal", "emoji": "🟤" },
+      { "id": "basic-11", "name": "Lápis", "description": "Lápis afiados", "emoji": "✏️" },
+      { "id": "basic-12", "name": "Tênis", "description": "Tênis velho", "emoji": "👟" }
+    ],
+    "trigger": [
+      { "id": "trigger-1", "name": "Gatilho", "description": "Mecanismo de ativação simples", "emoji": "⚡" },
+      { "id": "trigger-2", "name": "Sensor", "description": "Sensor de movimento", "emoji": "📡" },
+      { "id": "trigger-3", "name": "Timer", "description": "Timer programável", "emoji": "⏰" },
+      { "id": "trigger-4", "name": "Corda", "description": "Ativação por corda", "emoji": "🪢" },
+      { "id": "trigger-5", "name": "Pedal", "description": "Ativação por pedal", "emoji": "🦶" },
+      { "id": "trigger-6", "name": "Pressão", "description": "Sensor de pressão", "emoji": "⬇️" }
+    ]
+  },
+  "weapons": [
+    {
+      "id": "weapon-1",
+      "name": "Sentinela Nerf",
+      "description": "Uma pistola Nerf montada em um ventilador rotativo que dispara automaticamente quando detecta movimento.",
+      "firepower": 3,
+      "element": "physical",
+      "imagePath": "/upload/Gemini_Generated_Image_4eznj94eznj94ezn.png",
+      "recipe": {
+        "essential": "essential-1",
+        "base": "base-1",
+        "basic": "basic-1",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-2",
+      "name": "Metralhadora Vulcan",
+      "description": "A poderosa Nerf Vulcan montada em um tripé para defesa estática do quintal.",
+      "firepower": 5,
+      "element": "physical",
+      "imagePath": "/upload/Gemini_Generated_Image_5hzaly5hzaly5hza.png",
+      "recipe": {
+        "essential": "essential-2",
+        "base": "base-2",
+        "basic": "basic-1",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-3",
+      "name": "Sentinela de Fogo",
+      "description": "Um Super Soaker modificado que lança jatos de líquido inflamável.",
+      "firepower": 4,
+      "element": "fire",
+      "imagePath": "/upload/Gemini_Generated_Image_4d06dj4d06dj4d06.png",
+      "recipe": {
+        "essential": "essential-3",
+        "base": "base-2",
+        "basic": "basic-2",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-4",
+      "name": "Canhão de Tênis",
+      "description": "Um canhão caseiro que dispara bolas de tênis com grande precisão.",
+      "firepower": 3,
+      "element": "physical",
+      "imagePath": "/upload/Gemini_Generated_Image_4y2eag4y2eag4y2e.png",
+      "recipe": {
+        "essential": "essential-4",
+        "base": "base-3",
+        "basic": "basic-1",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-5",
+      "name": "Mina de Goma",
+      "description": "Uma armadilha explosiva que libera uma geleca pegajosa impossível de remover.",
+      "firepower": 2,
+      "element": "earth",
+      "imagePath": "/upload/Gemini_Generated_Image_cgubzpcgubzpcgub.png",
+      "recipe": {
+        "essential": "essential-5",
+        "base": "base-4",
+        "basic": "basic-3",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-6",
+      "name": "Lançador de Geleca",
+      "description": "Um dispositivo que lança projetis de gelatina grudenta.",
+      "firepower": 2,
+      "element": "earth",
+      "imagePath": "/upload/Gemini_Generated_Image_cgubzpcgubzpcgub.png",
+      "recipe": {
+        "essential": "essential-6",
+        "base": "base-5",
+        "basic": "basic-4",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-7",
+      "name": "Armadilha de Gude",
+      "description": "Pote cheio de bolinhas de gude que fazem os inimigos escorregarem.",
+      "firepower": 1,
+      "element": "earth",
+      "imagePath": "/upload/Gemini_Generated_Image_cgubzpcgubzpcgub.png",
+      "recipe": {
+        "essential": "essential-7",
+        "base": "base-5",
+        "basic": "basic-5",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-8",
+      "name": "Morteiro D'água",
+      "description": "Um canhão de água caseiro feito com tubos de PVC.",
+      "firepower": 3,
+      "element": "water",
+      "imagePath": "/upload/Gemini_Generated_Image_4y2eag4y2eag4y2e.png",
+      "recipe": {
+        "essential": "essential-8",
+        "base": "base-6",
+        "basic": "basic-6",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-9",
+      "name": "Armadilha Espanador",
+      "description": "Espanador montado em galhos que ativa com movimento, criando uma nuvem de poeira.",
+      "firepower": 1,
+      "element": "physical",
+      "imagePath": "/upload/Gemini_Generated_Image_2gm0hm2gm0hm2gm0.png",
+      "recipe": {
+        "essential": "essential-9",
+        "base": "base-7",
+        "basic": "basic-1",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-10",
+      "name": "Teia de Aranha",
+      "description": "Uma teia gigante de barbante que prende criaturas que tentam passar.",
+      "firepower": 2,
+      "element": "earth",
+      "imagePath": "/upload/Gemini_Generated_Image_2gm0hm2gm0hm2gm0.png",
+      "recipe": {
+        "essential": "essential-10",
+        "base": "base-8",
+        "basic": "basic-1",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-11",
+      "name": "Cobra de Mangueira",
+      "description": "Mangueira configurada para esguichar água em criaturas que se aproximam.",
+      "firepower": 2,
+      "element": "water",
+      "imagePath": "/upload/Gemini_Generated_Image_4y2eag4y2eag4y2e.png",
+      "recipe": {
+        "essential": "essential-11",
+        "base": "base-9",
+        "basic": "basic-6",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-12",
+      "name": "Spray de Pimenta",
+      "description": "Um pulverizador modificado que lança um jato de pimenta concentrada.",
+      "firepower": 3,
+      "element": "fire",
+      "imagePath": "/upload/Gemini_Generated_Image_4d06dj4d06dj4d06.png",
+      "recipe": {
+        "essential": "essential-12",
+        "base": "base-10",
+        "basic": "basic-7",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-13",
+      "name": "Espantalho",
+      "description": "Um espantalho feito de roupas velhas que pode assustar criaturas menores.",
+      "firepower": 1,
+      "element": "physical",
+      "imagePath": "/upload/Gemini_Generated_Image_2gm0hm2gm0hm2gm0.png",
+      "recipe": {
+        "essential": "essential-13",
+        "base": "base-5",
+        "basic": "basic-1",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-14",
+      "name": "Bambolê de Fogo",
+      "description": "Um bambolê envolto em material inflamável que cria uma barreira de fogo.",
+      "firepower": 4,
+      "element": "fire",
+      "imagePath": "/upload/Gemini_Generated_Image_4d06dj4d06dj4d06.png",
+      "recipe": {
+        "essential": "essential-14",
+        "base": "base-11",
+        "basic": "basic-8",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-15",
+      "name": "Tapete de Brasas",
+      "description": "Um tapete com carvão em brasa que queima qualquer coisa que pise nele.",
+      "firepower": 3,
+      "element": "fire",
+      "imagePath": "/upload/Gemini_Generated_Image_4d06dj4d06dj4d06.png",
+      "recipe": {
+        "essential": "essential-15",
+        "base": "base-12",
+        "basic": "basic-9",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-16",
+      "name": "Aspersor de Lama",
+      "description": "Um aspersor modificado para lançar lama nos inimigos.",
+      "firepower": 2,
+      "element": "earth",
+      "imagePath": "/upload/Gemini_Generated_Image_ax791yax791yax79.png",
+      "recipe": {
+        "essential": "essential-16",
+        "base": "base-13",
+        "basic": "basic-10",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-17",
+      "name": "Pêndulo de Pneu",
+      "description": "Um pneu balançando como pêndulo que atinge criaturas que passam.",
+      "firepower": 4,
+      "element": "physical",
+      "imagePath": "/upload/Gemini_Generated_Image_4j9jzj4j9jzj4j9j.png",
+      "recipe": {
+        "essential": "essential-17",
+        "base": "base-14",
+        "basic": "basic-11",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-18",
+      "name": "Gravidade de Fogo",
+      "description": "Um sistema de spray que jorra fogo por gravidade.",
+      "firepower": 3,
+      "element": "fire",
+      "imagePath": "/upload/Gemini_Generated_Image_4d06dj4d06dj4d06.png",
+      "recipe": {
+        "essential": "essential-18",
+        "base": "base-15",
+        "basic": "basic-8",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-19",
+      "name": "Besta de Lápis",
+      "description": "Uma besta motorizada que dispara lápis afiados como flechas.",
+      "firepower": 3,
+      "element": "physical",
+      "imagePath": "/upload/Gemini_Generated_Image_4j9jzj4j9jzj4j9j.png",
+      "recipe": {
+        "essential": "essential-19",
+        "base": "base-16",
+        "basic": "basic-11",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-20",
+      "name": "Lançador de Tênis",
+      "description": "Uma roda de bicicleta modificada para lançar tênis velhos.",
+      "firepower": 3,
+      "element": "physical",
+      "imagePath": "/upload/Gemini_Generated_Image_4y2eag4y2eag4y2e.png",
+      "recipe": {
+        "essential": "essential-20",
+        "base": "base-17",
+        "basic": "basic-12",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-21",
+      "name": "Armadilha de Choque",
+      "description": "Uma bateria de carro conectada a fios que dá um choque elétrico.",
+      "firepower": 4,
+      "element": "electric",
+      "imagePath": "/upload/Gemini_Generated_Image_1ywl1x1ywl1x1ywl.png",
+      "recipe": {
+        "essential": "essential-21",
+        "base": "base-18",
+        "basic": "basic-1",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-22",
+      "name": "Congelador CO2",
+      "description": "Um extintor de CO2 modificado que congela tudo ao redor.",
+      "firepower": 4,
+      "element": "ice",
+      "imagePath": "/upload/Gemini_Generated_Image_ax791yax791yax79.png",
+      "recipe": {
+        "essential": "essential-22",
+        "base": "base-19",
+        "basic": "basic-6",
+        "trigger": "trigger-1"
+      }
+    },
+    {
+      "id": "weapon-23",
+      "name": "Mina Sonora",
+      "description": "Uma buzina potente conectada a uma bateria que emite um som ensurdecedor.",
+      "firepower": 3,
+      "element": "sound",
+      "imagePath": "/upload/Gemini_Generated_Image_ax791yax791yax79.png",
+      "recipe": {
+        "essential": "essential-23",
+        "base": "base-15",
+        "basic": "basic-10",
+        "trigger": "trigger-1"
+      }
+    }
+  ],
+  "monsters": [
+    {
+      "id": "monster-1",
+      "name": "Saci",
+      "description": "O travesso menino de uma perna só que adora fazer travessuras. Corre em círculos criando redemoinhos de poeira.",
+      "hp": 3,
+      "maxHp": 3,
+      "movement": 3,
+      "category": "regular",
+      "emoji": "🌀",
+      "imageColor": "#8B4513",
+      "weakness": {
+        "type": "Armadilhas de Chão",
+        "description": "Armadilhas no chão tropeçam sua única perna (+1 dado)"
+      },
+      "resistance": {
+        "type": "Físico",
+        "description": "Seu corpo etéreo absorve golpes físicos (-1 sucesso)",
+        "isImmune": false
+      }
+    },
+    {
+      "id": "monster-2",
+      "name": "Mula Sem Cabeça",
+      "description": "A maldita mula que galopa pelo quintal soltando fogo pelas narinas. Não tenha medo do fogo, tenha medo dos cascos!",
+      "hp": 5,
+      "maxHp": 5,
+      "movement": 2,
+      "category": "regular",
+      "emoji": "🐴",
+      "imageColor": "#2C1810",
+      "weakness": {
+        "type": "Água/Som/Lama",
+        "description": "Água apaga seu fogo interno, som a assusta, lama a faz escorregar (+1 dado)"
+      },
+      "resistance": {
+        "type": "Fogo",
+        "description": "Completamente imune a ataques de fogo",
+        "isImmune": true
+      }
+    },
+    {
+      "id": "monster-3",
+      "name": "Capelobo",
+      "description": "Criatura híbrida com corpo de homem e cabeça de cachorro ou porco. Protege as florestas e ataca caçadores.",
+      "hp": 4,
+      "maxHp": 4,
+      "movement": 1,
+      "category": "regular",
+      "emoji": "🐕",
+      "imageColor": "#4A3728",
+      "weakness": {
+        "type": "Eletricidade/Perfuração",
+        "description": "Choques elétricos e armas perfurantes são especialmente eficazes (+1 dado)"
+      },
+      "resistance": {
+        "type": "Físico Leve",
+        "description": "Sua pele grossa reduz danos físicos leves (-1 sucesso)",
+        "isImmune": false
+      }
+    },
+    {
+      "id": "monster-4",
+      "name": "Curupira",
+      "description": "O protetor das florestas com pés virados para trás. Conhecido por confundir caçadores com suas pegadas invertidas.",
+      "hp": 3,
+      "maxHp": 3,
+      "movement": 2,
+      "category": "regular",
+      "emoji": "🌲",
+      "imageColor": "#228B22",
+      "weakness": {
+        "type": "Armadilhas Manuais",
+        "description": "Armadilhas que requerem ativação manual o pegam desprevenido (+1 dado)"
+      },
+      "resistance": {
+        "type": "Sensores",
+        "description": "Seus sentidos aguçados detectam armadilhas automáticas (-1 sucesso)",
+        "isImmune": false
+      }
+    },
+    {
+      "id": "monster-5",
+      "name": "Boitatá",
+      "description": "A serpente de fogo que protege as matas. Seus olhos brilham como tochas e seu corpo é feito de chamas.",
+      "hp": 4,
+      "maxHp": 4,
+      "movement": 2,
+      "category": "regular",
+      "emoji": "🔥",
+      "imageColor": "#FF4500",
+      "weakness": {
+        "type": "Gelo",
+        "description": "Ataques de gelo resfriam seu corpo flamejante (+1 dado)"
+      },
+      "resistance": {
+        "type": "Fogo/Sensores",
+        "description": "Imune a fogo e sensores de calor não a detectam (-1 sucesso)",
+        "isImmune": false
+      }
+    },
+    {
+      "id": "monster-6",
+      "name": "Cuca",
+      "description": "A bruxa mais temida do folclore brasileiro! Com aparência de velha feiticeira, ela ronda as noites em busca de crianças desobedientes.",
+      "hp": 10,
+      "maxHp": 10,
+      "movement": 1,
+      "category": "boss",
+      "emoji": "🧙‍♀️",
+      "imageColor": "#4B0082",
+      "weakness": {
+        "type": "Dano Combinado",
+        "description": "Só pode ser ferida quando dois ou mais tipos de dano são aplicados no mesmo turno (+1 dado)"
+      },
+      "resistance": {
+        "type": "Tudo Isolado",
+        "description": "Imune a qualquer tipo de dano quando atacada isoladamente",
+        "isImmune": false
+      }
+    }
+  ],
+  "gameRules": {
+    "combat": {
+      "diceType": "d6",
+      "hitThreshold": 4,
+      "hitRange": "4-6 = Acerto (causa 1 de dano)",
+      "missRange": "1-3 = Erro (não causa dano)",
+      "weaknessBonus": "+1 dado extra",
+      "resistancePenalty": "-1 sucesso"
+    },
+    "miniGame": {
+      "paths": 3,
+      "turns": 10,
+      "maxMonstersInHouse": 3,
+      "maxWeaponsPerPath": 2,
+      "zones": ["Rua", "Quintal", "Casa", "Cômodo"],
+      "rooms": ["Quarto", "Cozinha", "Sala"]
+    }
+  },
+  "cardCounts": {
+    "essential": 23,
+    "base": 20,
+    "basic": 12,
+    "trigger": 6,
+    "total": 61
+  },
+  "weaponCounts": {
+    "total": 23,
+    "byElement": {
+      "physical": 8,
+      "fire": 6,
+      "water": 2,
+      "electric": 1,
+      "ice": 1,
+      "earth": 4,
+      "sound": 1
+    }
+  }
+}
